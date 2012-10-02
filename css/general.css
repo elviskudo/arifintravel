@@ -1,0 +1,50 @@
+/* CSS Document */
+
+body {margin:25px; font:11px Verdana,Arial;}
+#notice {
+background-repeat:no-repeat;
+border:0.1em solid #FFD700;
+margin:0.5em 0;
+padding:10px 10px 10px 36px;
+width:94%;
+background-color:#FFFFDD;
+color:#000000;
+}
+#subheader {
+margin: 0 auto;height:25px; width:800px; background:#DADEDB; font-size:12px; font-weight:bold;
+padding-top:5px; 
+border:0.1em solid #FFD700;
+}
+#subheader2 {
+margin: 0 auto;height:20px; background:#DADEDB; font-size:11px; font-weight:bold;
+padding-top:5px; padding-left:10px
+}
+
+#subcontent {
+min-height:300px; margin: 0 auto; width:800px; 
+border:0.1em solid #FFD700;
+}
+
+#subcontent2 {
+border:0.1em solid #FFD700;
+}
+
+.textInput {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: lighter;
+	color: #000000;
+}
+.submitInput {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: lighter;
+	color: #000000;
+}
+
+.textHeader{
+font-family:Arial, Helvetica, sans-serif;
+font-size:14px;
+font-weight:bold;
+color:#666666;
+}

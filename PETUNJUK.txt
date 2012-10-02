@@ -1,0 +1,25 @@
+PETUNJUK RENT CAR FORM
+
+Halaman 1
+JIKA pelanggan baru:
+1. TERLEBIH DAHULU KLIK LINK: TAMBAH DATA BARU, untuk memulai menginput, OK
+2. TAMBAHKAN TUJUAN DI KOLOM TUJUAN
+3. KLIK TOMBOL ORDER
+
+JIKA pelanggan lama:
+1. TERLEBIH DAHULU KLIK LINK: CARI DATA LAMA, untuk memulai menginput
+2. PILIH BERDASARKAN NAMA, FIND, SELECT.(KATA KUNCI bs di kosongkan)
+2. TAMBAHKAN TUJUAN DI KOLOM TUJUAN
+3. KLIK TOMBOL ORDER
+
+
+
+Halaman 2
+1. PILIH CABANG PEMESAN
+2. KLIK LINK: CARI DATA MOBIL, pilih JENIS kemudian klik FIND dan pilih mobilnya, SELECT. (KATA KUNCI bs di kosongkan)
+3. isi kolom TARIF
+4. isi kolom TANGGAl - TANGGAl (jika 1 hari tgl sama)
+5. Jaminan
+6. Catatan
+
+KIRIM
