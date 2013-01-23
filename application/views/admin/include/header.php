@@ -38,13 +38,54 @@
 			<img src="<?php echo base_url() ?>images/logo.gif" alt="">
 			<div id='menu'>
 				<ul>
-					<li><a href="<?php echo base_url() ?>admin/">dashboard</a></li>
-					<li><a href="<?php echo base_url() ?>admin/invoice/">report antar</a></li>
-					<li><a href="<?php echo base_url() ?>admin/invoicej/">report jemput</a></li>
-					<li><a href="<?php echo base_url() ?>admin/pemberangkatan/">report pemberangkatan</a></li>
-					<li><a href="<?php echo base_url() ?>admin/penukaran/">report penukaran</a></li>
-					<li><a href="<?php echo base_url() ?>admin/tiket/">report tiket</a></li>
-					<li><a href="<?php echo base_url() ?>admin/rental/">report persewaan</a></li>
+					<li>
+						<a href="<?php echo base_url() ?>admin/">
+							<img src="<?php echo base_url() ?>images/show.gif" height="16" width="16" style="height:16px;width:16px" />
+							beranda
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo base_url() ?>admin/invoice/">
+							<img src="<?php echo base_url() ?>images/show.gif" height="16" width="16" style="height:16px;width:16px" />
+							antar
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo base_url() ?>admin/invoicej/">
+							<img src="<?php echo base_url() ?>images/show.gif" height="16" width="16" style="height:16px;width:16px" />
+							jemput
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo base_url() ?>admin/pemberangkatan/">
+							<img src="<?php echo base_url() ?>images/show.gif" height="16" width="16" style="height:16px;width:16px" />
+							pemberangkatan
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo base_url() ?>admin/penukaran/">
+							<img src="<?php echo base_url() ?>images/show.gif" height="16" width="16" style="height:16px;width:16px" />
+							penukaran
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo base_url() ?>admin/tiket/">
+							<img src="<?php echo base_url() ?>images/show.gif" height="16" width="16" style="height:16px;width:16px" />
+							tiket
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo base_url() ?>admin/rental/">
+							<img src="<?php echo base_url() ?>images/show.gif" height="16" width="16" style="height:16px;width:16px" />
+							persewaan
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo base_url() ?>admin/neraca/">
+							<img src="<?php echo base_url() ?>images/show.gif" height="16" width="16" style="height:16px;width:16px" />
+							buku besar
+						</a>
+					</li>
 				</ul>
 				<div class='clear'></div>
 			</div><!--#menu-->
