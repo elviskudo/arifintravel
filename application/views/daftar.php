@@ -14,6 +14,7 @@
 						<div class='simple'>
 							<label for="emailn">Email</label>
 							<input type="text" id='emailn' name="emailn" value="" class='required'>
+							<img id="email_registered" style="display:none;" src="<?php echo base_url() ?>images/check.gif" />
 						</div>
 						<div class='simple'>
 							<label for="password">Password</label>
@@ -76,6 +77,7 @@
 							<textarea name="deskripsi"></textarea>
 						</div>
 						<div class='simple'>
+							<input type="hidden" name="email_registered" id="is_email_registered" value="0">
 							<label for="submit">&nbsp;</label>
 							<input type="submit" name="submit" value="Simpan">
 						</div>

@@ -6,7 +6,7 @@ RewriteCond %{HTTP_HOST} ^www\.arifintravel\.com$
 RewriteRule ^mail\/?$ "https\:\/\/www\.google\.com\/a\/arifintravel\.com\/ServiceLogin\?service\=mail\&passive\=true\&rm\=false\&continue\=http\:\/\/mail\.google\.com\/a\/arifintravel\.com\/\&ltmpl\=default\&ltmplcache\=2" [R=301,L]
 
 <IfModule mod_rewrite.c>
-    RewriteBase /_PROJECT/arifintravel/
+    #RewriteBase /arifintravel/
 
     #Removes access to the system folder by users.
     #Additionally this will allow you to create a System.php controller,

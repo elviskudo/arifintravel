@@ -29,13 +29,11 @@ class Login extends CI_Controller {
 			$this->session->set_userdata('login_type', 'jemput');
 		} else {
 			if($this->session->userdata('jam')) {
-				//echo "tidak kosong";
 				$this->session->set_userdata('jam', $this->input->post('jam'));
 				foreach($this->session->userdata('jam') as $jm)
 					$id_jam = $jm;
 			} elseif($this->input->post('jam')) {
-			    //echo "kosong";
-				foreach($this->input->post('jam') as $jm)
+			    foreach($this->input->post('jam') as $jm)
 					$id_jam = $jm;
 				$this->session->set_userdata('jam', $id_jam);
 			}
@@ -46,7 +44,6 @@ class Login extends CI_Controller {
 		$id_pesawat = explode('. ', $pesawat);
 		$data['id_pesawat'] = $id_pesawat[0];
 		$data['pesawat'] = $id_pesawat[1];
-		//$data['pesawat'] = $this->pesawat->all();
 		if($this->session->userdata('login_type') == 'jemput')
 			$id_kota = $this->input->post('kota');
 		else
@@ -80,34 +77,34 @@ class Login extends CI_Controller {
 	}
 	function process() {
 		$email = $this->input->post('email');
-		$email = explode('@',$this->input->post('email'));
-		$email1 = $email[0];
-		$query = $this->db->get('kota')->result();
-		foreach($query as $row) {
-			if(strtoupper($email1) == strtoupper($row->nama) || $email1 == 'admin') {
-				$data = $this->user->get($this->input->post('email'), $this->input->post('password'));
-				if($data) {
-					foreach($data as $dt) {
-						$id_user = $dt->id_user;
-						$nama = $dt->nama;
-						$level = $dt->level;
-					}
-					$sess = array(
-						'id_user' => $id_user,
-						'nama' => $nama,
-						'email' => $this->input->post('email'),
-						'level' => $level
-					);
-					$this->session->set_userdata($sess);
-				}
-				if(!$this->input->post('url')) {
-					redirect('main');
-				} else {
-					redirect('main');
-				}
-			}	else {
-				//redirect('main');
-			}
+		$password = $this->input->post('password');
+		if(preg_match('/^[\w]+@[\w\.]+/i', $email) == true) {
+			$data = $this->user->get($email, $password);
+			$id_user = $data->id_user;
+			$nama = $data->nama;
+			$level = $data->level;
+			$sess = array(
+				'id_user' => $id_user,
+				'nama' => $nama,
+				'email' => $this->input->post('email'),
+				'level' => $level
+			);
+			$this->session->set_userdata($sess);
+			redirect('main');
+		} else {
+			redirect('main');
+		}
+	}
+	function validate_email() {
+		$email = $this->input->get('email');
+		if(preg_match('/^[\w]+@[\w\.]+/i', $email) == true) {
+			$data = $this->user->validate_email($email);
+			if($data == true)
+				echo 'true';
+			else
+				echo 'false';
+		} else {
+			echo 'false';
 		}
 	}
 
