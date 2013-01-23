@@ -16,12 +16,16 @@ class User_model extends CI_Model {
 		$query = $this->db->get('user');
 		return $query->result();
 	}
+	function validate_email($email) {
+		$this->db->where('email', $email);
+		$query = $this->db->get('user');
+		return true;
+	}
 	function get($email, $password) {
 		$this->db->where('email', $email);
 		$this->db->where('password', $password);
-		$this->db->limit(1);
 		$query = $this->db->get('user');
-		return $query->result();
+		return $query->row();
 	}
 	function getuser($id) {
 		$this->db->where('id_user', $id);

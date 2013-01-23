@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://www.arifintravel.com/';
+$config['base_url']	= 'http://localhost/_PROJECT/arifintravel/';
 
 /*
 |--------------------------------------------------------------------------

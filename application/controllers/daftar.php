@@ -62,7 +62,7 @@ class Daftar extends CI_Controller {
 			$this->index();
 		} else {
 			$this->user->insert();
-			redirect('login');
+			redirect('main');
 		}
 	}
 	function update() {
