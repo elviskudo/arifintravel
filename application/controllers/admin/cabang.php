@@ -1,13 +1,13 @@
 <?php if (! defined('BASEPATH')) exit('No direct script access');
 
-class Neraca extends CI_Controller {
+class Cabang extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->library('pagination');
 		
-		$this->load->model('neraca_model', 'neraca');
+		$this->load->model('cabang_model', 'cabang');
 		$this->load->model('user_model', 'user');
 	}
 
@@ -16,17 +16,17 @@ class Neraca extends CI_Controller {
 			$this->session->sess_destroy();
 			redirect('admin/main');
 		}
-		$id = $this->session->userdata('id_neraca');
-		$data['getneraca'] = $this->neraca->getp($id);
+		$id = $this->session->userdata('id_cabang');
+		$data['getcabang'] = $this->cabang->getp($id);
 		$data['user'] = $this->user->getmail($this->session->userdata('email'));
 		
 		/* pagination */
 		$limit = 5;
-		$total = $this->neraca->count();
-		$data['neraca'] = $this->neraca->page($limit, $offset);
+		$total = $this->cabang->count();
+		$data['cabang'] = $this->cabang->page($limit, $offset);
 		$data['total'] = $total;
 		
-		$config['base_url'] = base_url().'admin/neraca/index/';
+		$config['base_url'] = base_url().'admin/cabang/index/';
 		$config['total_rows'] = $total;
 		$config['uri_segment'] = 4;
 		$config['num_links'] = 8;
@@ -35,21 +35,22 @@ class Neraca extends CI_Controller {
 		$this->pagination->initialize($config);
 		
 		if(IS_AJAX) {
-			$this->load->view('admin/ajax/neraca', $data);
+			$this->load->view('admin/ajax/cabang', $data);
 		} else {
-			$this->load->view('admin/neraca', $data);
+			$this->load->view('admin/cabang', $data);
 		}
 	}
 	
 	/* proses CRUD */
 	function insert() {
 		$this->session->set_userdata('update','no');
-		redirect('admin/neraca#insert');
+		redirect('admin/cabang#insert');
 	}
-	function insert_neraca() {
-		$this->form_validation->set_rules('no', 'No neraca', 'required|xss_clean');
+	function insert_cabang() {
 		$this->form_validation->set_rules('nama', 'Nama', 'required|xss_clean');
-		$this->form_validation->set_rules('jam', 'Jam', 'required|xss_clean');
+		$this->form_validation->set_rules('kota', 'Kota', 'required|xss_clean');
+		$this->form_validation->set_rules('kontak', 'kontak', 'required|xss_clean');
+		$this->form_validation->set_rules('saldo', 'saldo', 'required|xss_clean');
 		if($this->form_validation->run() == FALSE) {
 			$data = array(
 				'update' => 'no'
@@ -57,30 +58,30 @@ class Neraca extends CI_Controller {
 			$this->session->set_userdata($data);
 			$this->index();
 		}	else {
-			$this->neraca->insert();
-			redirect('admin/neraca#insert');
+			$this->cabang->insert();
+			redirect('admin/cabang#insert');
 		}
 	}
-	function update_neraca() {
-		$this->session->set_userdata('id_neraca', $this->uri->segment(4));
+	function update_cabang() {
+		$this->session->set_userdata('id_cabang', $this->uri->segment(4));
 		$this->session->set_userdata('update', 'yes');
 		$id = $this->uri->segment(4);
-		redirect('admin/neraca#update');
+		redirect('admin/cabang#update');
 	}
-	function update_neraca_y() {
-		$id = $this->input->post('id_neraca');
-		$this->neraca->update($id);
-		redirect('admin/neraca');
+	function update_cabang_y() {
+		$id = $this->input->post('id_cabang');
+		$this->cabang->update($id);
+		redirect('admin/cabang');
 	}
-	function delete_neraca() {
+	function delete_cabang() {
 		$id = $this->uri->segment(4);
-		$this->neraca->delete($id);
-		redirect('admin/neraca');
+		$this->cabang->delete($id);
+		redirect('admin/cabang');
 	}
-	function force_neraca() {
+	function force_cabang() {
 		$id = $this->uri->segment(4);
-		$this->neraca->force($id);
-		redirect('admin/neraca');
+		$this->cabang->force($id);
+		redirect('admin/cabang');
 	}
 
 }

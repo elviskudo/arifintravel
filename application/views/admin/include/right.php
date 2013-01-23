@@ -1,12 +1,13 @@
 <div id="admin-right">
 	<h4>Master Data</h4>
 	<ul>
-				<li><a href="<?php echo base_url() ?>admin/pesawat/">PESAWAT</a></li>
-					<li><a href="<?php echo base_url() ?>admin/kota/">KOTA</a></li>
-					<li><a href="<?php echo base_url() ?>admin/jam/">JAM</a></li>
-					<li><a href="<?php echo base_url() ?>admin/kurs/">KURS</a></li>
-					<li><a href="<?php echo base_url() ?>admin/mobil/">MOBIL</a></li>
-					<li><a href="<?php echo base_url() ?>admin/user/">USER</a></li>
+		<li><a href="<?php echo base_url() ?>admin/cabang/">KANTOR CABANG</a></li>
+		<li><a href="<?php echo base_url() ?>admin/pesawat/">PESAWAT</a></li>
+		<li><a href="<?php echo base_url() ?>admin/kota/">KOTA</a></li>
+		<li><a href="<?php echo base_url() ?>admin/jam/">JAM</a></li>
+		<li><a href="<?php echo base_url() ?>admin/kurs/">KURS</a></li>
+		<li><a href="<?php echo base_url() ?>admin/mobil/">MOBIL</a></li>
+		<li><a href="<?php echo base_url() ?>admin/user/">USER</a></li>
 	</ul>
 	<br />
 	<br />

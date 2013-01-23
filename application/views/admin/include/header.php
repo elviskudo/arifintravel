@@ -81,9 +81,9 @@
 						</a>
 					</li>
 					<li>
-						<a href="<?php echo base_url() ?>admin/neraca/">
+						<a href="<?php echo base_url() ?>admin/transaksi/">
 							<img src="<?php echo base_url() ?>images/show.gif" height="16" width="16" style="height:16px;width:16px" />
-							buku besar
+							transaksi
 						</a>
 					</li>
 				</ul>

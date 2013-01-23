@@ -1,8 +1,8 @@
 			<table id='blog'>
 				<caption>
-					neraca [<?php echo $total ?> data]
+					transaksi [<?php echo $total ?> data]
 					<div class='insert' style='float:right;text-transform:lowercase;'>
-						<a href="<?php echo base_url() ?>admin/neraca/insert/">
+						<a href="<?php echo base_url() ?>admin/transaksi/insert/">
 							<img src="<?php echo base_url() ?>images/insert.gif" alt="Tambah Data">
 							Tambah Data
 						</a>
@@ -11,25 +11,24 @@
 				<thead>
 					<tr>
 						<th class='no'>No</th>
-						<th>No neraca</th>
-						<th>Nama</th>
-						<th>Jam</th>
+						<th>Tanggal</th>
+						<th>Judul</th>
+						<th>Cabang</th>
+						<th>Nilai</th>
 						<th class='action'>Action</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php $num = 1; ?>
-					<?php foreach($neraca as $row): ?>
+					<?php foreach($transaksi as $row): ?>
 					<tr>
 						<td><?php echo $num ?></td>
-						<td><?php echo $row->no ?></td>
+						<td><?php echo date('d M Y H:i:s', $row->tanggal) ?></td>
+						<td><?php echo $row->judul ?></td>
 						<td><?php echo $row->nama ?></td>
-						<td><?php echo $row->jam ?></td>
+						<td><?php echo str_replace(',','.',number_format($row->nilai)) ?></td>
 						<td>
-							<a href="<?php echo base_url() ?>admin/neraca/update_neraca/<?php echo $row->id_neraca ?>">
-								<img src="<?php echo base_url() ?>images/update.gif" alt="Edit Data" title="Edit Data">
-							</a>
-							<a href="<?php echo base_url() ?>admin/neraca/delete_neraca/<?php echo $row->id_neraca ?>" onclick="return confirm('Apakah kamu yakin untuk menghapus neraca ini?')">
+							<a href="<?php echo base_url() ?>admin/transaksi/delete_transaksi/<?php echo $row->id_transaksi ?>" onclick="return confirm('Apakah kamu yakin untuk menghapus transaksi ini?')">
 								<img src="<?php echo base_url() ?>images/delete.gif" alt="Hapus Data" title="Hapus Data">
 							</a>
 						</td>
