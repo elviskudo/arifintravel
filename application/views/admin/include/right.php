@@ -1,4 +1,5 @@
 <div id="admin-right">
+	<?php if($this->session->userdata('level') == 1): ?>
 	<h4>Master Data</h4>
 	<ul>
 		<li><a href="<?php echo base_url() ?>admin/cabang/">KANTOR CABANG</a></li>
@@ -7,24 +8,22 @@
 		<li><a href="<?php echo base_url() ?>admin/jam/">JAM</a></li>
 		<li><a href="<?php echo base_url() ?>admin/kurs/">KURS</a></li>
 		<li><a href="<?php echo base_url() ?>admin/mobil/">MOBIL</a></li>
+		<li><a href="<?php echo base_url() ?>admin/pegawai/">PEGAWAI</a></li>
 		<li><a href="<?php echo base_url() ?>admin/user/">USER</a></li>
 	</ul>
 	<br />
 	<br />
+	<?php endif ?>
 	<h4>User yang login:</h4>
 	<ul>
 		<?php foreach($user as $row): ?>
 		<li>
-			<p class='nama'>Username:</p>
+			<p class='nama'>Email:</p>
 			<p style='font-weight:bold'><?php echo $this->session->userdata('email'); ?></p>
 		</li>
 		<li>
 			<p class='nama'>Nama:</p>
 			<p style='font-weight:bold'><?php echo $row->nama; ?></p>
-		</li>
-		<li>
-			<p class='nama'>Email:</p>
-			<p style='font-weight:bold'><?php echo $row->email; ?></p>
 		</li>
 		<li>
 			<p class='nama'>Telpon:</p>
@@ -39,9 +38,9 @@
 			<p style='font-weight:bold;text-transform:uppercase'>
 			<?php
 			if($row->level == 1)
-				echo 'ADMIN';
+				echo 'SUPER USER';
 			else
-				echo 'GUEST';
+				echo 'PEGAWAI';
 			?>
 			</p>
 		</li>

@@ -38,6 +38,7 @@
 			<img src="<?php echo base_url() ?>images/logo.gif" alt="">
 			<div id='menu'>
 				<ul>
+					<?php if($this->session->userdata('level') == 1): ?>
 					<li>
 						<a href="<?php echo base_url() ?>admin/">
 							<img src="<?php echo base_url() ?>images/show.gif" height="16" width="16" style="height:16px;width:16px" />
@@ -80,6 +81,7 @@
 							persewaan
 						</a>
 					</li>
+					<?php endif; ?>
 					<li>
 						<a href="<?php echo base_url() ?>admin/transaksi/">
 							<img src="<?php echo base_url() ?>images/show.gif" height="16" width="16" style="height:16px;width:16px" />

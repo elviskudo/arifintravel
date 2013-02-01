@@ -8,18 +8,19 @@ class Invoice extends CI_Controller {
 		$this->load->library('pagination');
 		
 		$this->load->model('invoice_model', 'invoice');
+		$this->load->model('admin_model', 'admin');
 		$this->load->model('user_model', 'user');
 		$this->load->model('kota_model', 'kota');
 	}
 
 	function index($offset = '') {
-		if($this->session->userdata('level') === '0') {
+		if($this->session->userdata('level') == 0) {
 			$this->session->sess_destroy();
 			redirect('admin/main');
 		}
 		$id = $this->session->userdata('id_invoice');
 		$data['getinvoice'] = $this->invoice->getp($id);
-		$data['user'] = $this->user->getmail($this->session->userdata('email'));
+		$data['user'] = $this->admin->getmail($this->session->userdata('email'));
 		$data['pesawat'] = $this->invoice->getpesawat();
 		$data['getuser'] = $this->invoice->getalluser();
 		$data['kota'] = $this->kota->all();

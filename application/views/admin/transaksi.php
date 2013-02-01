@@ -61,12 +61,8 @@
 				<?php foreach($gettransaksi as $gb): ?>
 				<div class="simple">
 					<label for="id_cabang">Kantor Cabang</label>
-					<select id='id_cabang' name="id_cabang" class='required'>
-						<?php foreach($cabang as $cb): ?>
-						<?php echo $selected = ($cb->id_cabang == $gb->id_cabang) ? ' selected' : '' ?>
-						<option value="<?php echo $cb->id_cabang ?>"<?php echo $selected ?>><?php echo $cb->nama ?></option>
-						<?php endforeach ?>
-					</select>
+					<input type="hidden" name="id_cabang" value="<?php echo $this->session->userdata('id_cabang') ?>">
+					<input type="text" id="cabang" name="cabang" value="<?php echo $cabang ?>" readonly />
 				</div>
 				<div class="simple">
 					<label for="judul">Judul</label>
@@ -89,12 +85,8 @@
 			<form id='insert' action="<?php echo base_url() ?>admin/transaksi/insert_transaksi/" method="post" enctype="multipart/form-data" accept-charset="utf-8">
 				<div class="simple">
 					<label for="id_cabang">Kantor Cabang</label>
-					<select id='id_cabang' name="id_cabang" class='required'>
-						<?php foreach($cabang as $cb): ?>
-						<?php echo $selected = ($cb->id_cabang == set_value('id_cabang')) ? ' selected' : '' ?>
-						<option value="<?php echo $cb->id_cabang ?>"<?php echo $selected ?>><?php echo $cb->nama ?></option>
-						<?php endforeach ?>
-					</select>
+					<input type="hidden" name="id_cabang" value="<?php echo $this->session->userdata('id_cabang') ?>"/>
+					<input type="text" id="cabang" name="cabang" value="<?php echo $cabang ?>" readonly>
 				</div>
 				<div class="simple">
 					<label for="judul">Judul</label>

@@ -19,6 +19,13 @@ class Cabang_model extends CI_Model {
 		$row = $query->row();
 		return $row->$search;
 	}
+	function getnama($id) {
+		$this->db->select('nama, kota');
+		$this->db->where('id_cabang', $id);
+		$query = $this->db->get('cabang');
+		$row = $query->row();
+		return $row->nama.' KOTA '.$row->kota;
+	}
 	function getp($id) {
 		$this->db->where('id_cabang', $id);
 		$this->db->where('status', 1);
@@ -37,26 +44,35 @@ class Cabang_model extends CI_Model {
 		return $row->id_cabang.' - '.$row->nama_cabang;
 	}
 	function page($limit, $offset) {
-		$this->db->where('status', '1');
+		$this->db->where('status', 1);
 		$this->db->limit($limit, $offset);
 		$query = $this->db->get('cabang');
 		return $query->result();
 	}
 	function count() {
-		$this->db->where('status', '1');
+		$this->db->where('status', 1);
 		$query = $this->db->get('cabang');
 		return $query->num_rows();
 	}
 	
 	/* process CRUD */
+	function log($isi, $id_cabang) {
+		$data = array(
+			'tanggal' => date('Y-m-d H:i:s'),
+			'event' => $isi.' cabang&id: '.$id_cabang,
+			'ip' => $_SERVER['REMOTE_ADDR'],
+			'agent' => $_SERVER['HTTP_USER_AGENT']
+		);
+		$this->db->insert('log', $data);
+	}
 	function insert() {
 		// insert to cabang
 		$data = array(
 			'tanggal' => time(),
 			'id_user' => substr(md5($this->session->userdata('email')),0,8),
-			'nama' => $this->input->post('nama'),
+			'nama' => strtoupper($this->input->post('nama')),
 			'alamat' => $this->input->post('alamat'),
-			'kota' => $this->input->post('kota'),
+			'kota' => strtoupper($this->input->post('kota')),
 			'telpon' => $this->input->post('telpon'),
 			'email' => $this->input->post('email'),
 			'kontak' => $this->input->post('kontak'),
@@ -67,6 +83,7 @@ class Cabang_model extends CI_Model {
 		);
 		$this->db->insert('cabang', $data);
 		$id_cabang = $this->db->insert_id();
+		$this->log('insert', $id);
 
 		// insert to transaksi
 		$data = array(
@@ -79,20 +96,23 @@ class Cabang_model extends CI_Model {
 			'status' => 1
 		);
 		$this->db->insert('transaksi', $data);
+		$this->log('insert transaksi', $id);
 	}
 	function update($id) {
 		$data = array(
-			'nama' => $this->input->post('nama'),
+			'nama' => strtoupper($this->input->post('nama')),
 			'alamat' => $this->input->post('alamat'),
-			'kota' => $this->input->post('kota'),
+			'kota' => strtoupper($this->input->post('kota')),
 			'telpon' => $this->input->post('telpon'),
 			'email' => $this->input->post('email'),
 			'kontak' => $this->input->post('kontak'),
 			'hp' => $this->input->post('hp'),
-			'saldo_akhir' => $this->input->post('saldo'),
+			'saldo_awal' => $this->input->post('saldo_awal'),
+			'saldo_akhir' => $this->input->post('saldo_akhir'),
 		);
 		$this->db->where('id_cabang', $id);
 		$this->db->update('cabang', $data);
+		$this->log('update', $id);
 
 		// insert to transaksi
 		$data = array(
@@ -105,20 +125,32 @@ class Cabang_model extends CI_Model {
 			'status' => 1
 		);
 		$this->db->insert('transaksi', $data);
+		$this->log('update transaksi', $id);
 	}
 	function delete($id) {
-		$data = array(
-			'status' => 0
-		);
-		$this->db->where('id_cabang', $id);
-		$this->db->update('cabang', $data);
+		if($id > 1) {
+			// update cabangnya
+			$data = array(
+				'status' => 0,
+			);
+			$this->db->where('id_cabang', $id);
+			$this->db->update('cabang', $data);
+			$this->log('delete', $id);
+			// update transaksinya
+			$data = array('status'=>0);
+			$this->db->where('id_cabang', $id);
+			$this->db->update('transaksi', $data);
+			$this->log('delete transaksi', $id);
+		}
 	}
 	function force($id) {
 		$this->db->where('id_cabang', $id);
 		$this->db->delete('transaksi');
+		$this->log('force', $id);
 
 		$this->db->where('id_cabang', $id);
 		$this->db->delete('cabang');
+		$this->log('force transaksi', $id);
 	}
 
 }

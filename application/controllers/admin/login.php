@@ -5,6 +5,10 @@ class Login extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->model('admin/user_model', 'user');
+		$this->load->model('cabang_model', 'cabang');
+		$this->load->model('admin_model', 'admin');
+		$this->load->model('invoice_model', 'invoice');
+		$this->load->model('invoicej_model', 'invoicej');
 	}
 
 	function index() {
@@ -17,6 +21,7 @@ class Login extends CI_Controller {
 						#login {
 							background:#fff;
 							border:1px solid #ccc;
+							font: normal 12px/16px Arial,sans-serif;
 							margin:200px auto;
 							padding:20px;
 							width:480px;
@@ -26,7 +31,7 @@ class Login extends CI_Controller {
 						}
 						#login_form { text-align:left; }
 						.simple { margin:20px 0; }
-						.simple label { float:left; width:80px; }
+						.simple label { float:left; width:120px; }
 					</style>
 				</head>
 				</body>
@@ -35,9 +40,9 @@ class Login extends CI_Controller {
 						<form id='login_form' method='post' action='".base_url()."admin/login/force/'>
 		";
 		if($this->session->userdata('error')) {
-	  	$html .= "<p style='background:#ff0;border:1px solid #f00;color:#f00;padding:5px;'>".$this->session->userdata('error')."</p>";
-	  	$this->session->unset_userdata('error');
-  	}
+		  	$html .= "<p style='background:#ff0;border:1px solid #f00;color:#f00;padding:5px;'>".$this->session->userdata('error')."</p>";
+		  	$this->session->unset_userdata('error');
+	  	}
 		$html .= "
 							<div class='simple'>
 								<label for='email'>Login: </label>
@@ -46,6 +51,17 @@ class Login extends CI_Controller {
 							<div class='simple'>
 								<label for='password'>Password: </label>
 								<input type='password' id='password' name='password' size='30' />
+							</div>
+							<div class='simple'>
+								<label for='cabang'>Kantor Cabang: </label>
+								<select id='cabang' name='cabang'>
+		";
+		$cabang = $this->cabang->all();
+		foreach($cabang as $cbg) {
+			$html .= '<option value="'.$cbg->id_cabang.'">'.$cbg->nama.' KOTA '.$cbg->kota.'</option>';
+		}
+		$html .= "
+								</select>
 							</div>
 							<div class='simple'>
 								<label for='submit'>&nbsp;</label>
@@ -62,38 +78,34 @@ class Login extends CI_Controller {
 		$this->session->sess_destroy();
 		$email = $this->input->post('email');
 		$password = $this->input->post('password');
+		$cabang = $this->input->post('cabang');
 		if($email == '' && $password == '') {
 			$this->session->set_userdata('error', 'Email dan Password belum diisi!');
 		} else {
-			$email1 = explode('@',$email);
-			$email1 = $email1[0];
-			$query = $this->db->get('kota')->result();
-			$logged = $this->user->getlogin($email, $password);
-			foreach($query as $row) {
-				if($email1 == $row->nama || $email1 == 'admin') {
-					if($logged) {
-						foreach($logged as $row) {
-							$this->session->unset_userdata('error');
-							if($row->level == 1) {
-								$data = array(
-									'id_user' => $row->id_user,
-									'email' => $email,
-									'level' => $row->level
-								);
-								$this->session->set_userdata($data);
-							} else {
-								$this->session->set_userdata('error', 'Anda tidak berhak berada halaman ini!');
-							}
-						}
-					} else {
-						$this->session->set_userdata('error', 'Email dan Password tidak ditemukan!');
-					}
-				} else {
-					$this->session->set_userdata('error', 'Anda tidak berhak berada halaman ini!');
+			$logged = $this->admin->getlogin($email, $password, $cabang);
+			if($logged) {
+				foreach($logged as $row) {
+					$this->session->unset_userdata('error');
+					$data = array(
+						'id_user' => $row->id_admin,
+						'email' => $email,
+						'level' => $row->level,
+						'id_cabang' => $row->id_cabang
+					);
+					$this->session->set_userdata($data);
+					if($row->level == 0)
+						redirect('admin/transaksi');
+					$data['statusantar'] = $this->invoice->getstatus();
+					$data['statusjemput'] = $this->invoicej->getstatus();
+					$data['user'] = $this->admin->getmail($this->session->userdata('email'));
+					$this->load->view('admin/main', $data);
 				}
+			} else {
+				$this->session->set_userdata('error', 'Email dan Password tidak ditemukan!');
+				redirect('admin/login');
 			}
 		}
-		redirect('admin');
+		// redirect('admin');
 	}
 
 }

@@ -5,19 +5,22 @@ class Main extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->model('admin/user_model', 'user');
+		$this->load->model('admin_model', 'admin');
 		$this->load->model('invoice_model', 'invoice');
 		$this->load->model('invoicej_model', 'invoicej');
 	}
 
 	function index() {
-		if($this->session->userdata('level') === '0') {
-			$this->session->sess_destroy();
-			redirect('admin/login');
-		} else {
+		if($this->session->userdata('level') === 0) {
+			redirect('admin/transaksi');
+		} elseif($this->session->userdata('level') == 1) {
 			$data['statusantar'] = $this->invoice->getstatus();
 			$data['statusjemput'] = $this->invoicej->getstatus();
-			$data['user'] = $this->user->getmail($this->session->userdata('email'));
+			$data['user'] = $this->admin->getmail($this->session->userdata('email'));
 			$this->load->view('admin/main', $data);
+		} else {
+			$this->session->sess_destroy();
+			redirect('admin/login');
 		}
 	}
 	function update1() {

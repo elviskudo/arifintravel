@@ -7,18 +7,19 @@ class Kota extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->library('pagination');
 		
+		$this->load->model('admin_model', 'admin');
 		$this->load->model('kota_model', 'kota');
 		$this->load->model('user_model', 'user');
 	}
 
 	function index($offset = '') {
-		if($this->session->userdata('level') === '0') {
+		if($this->session->userdata('level') == 0) {
 			$this->session->sess_destroy();
 			redirect('admin/main');
 		}
 		$id = $this->session->userdata('id_kota');
 		$data['getkota'] = $this->kota->getp($id);
-		$data['user'] = $this->user->getmail($this->session->userdata('email'));
+		$data['user'] = $this->admin->getmail($this->session->userdata('email'));
 		
 		/* pagination */
 		$limit = 5;

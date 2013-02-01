@@ -42,9 +42,11 @@
 							<a href="<?php echo base_url() ?>admin/cabang/update_cabang/<?php echo $row->id_cabang ?>">
 								<img src="<?php echo base_url() ?>images/update.gif" alt="Edit Data" title="Edit Data">
 							</a>
+							<?php if($row->id_cabang > 1): ?>
 							<a href="<?php echo base_url() ?>admin/cabang/delete_cabang/<?php echo $row->id_cabang ?>" onclick="return confirm('Apakah kamu yakin untuk menghapus cabang ini?')">
 								<img src="<?php echo base_url() ?>images/delete.gif" alt="Hapus Data" title="Hapus Data">
 							</a>
+							<?php endif ?>
 						</td>
 					</tr>
 					<?php $num++; ?>
@@ -95,8 +97,12 @@
 					<input type='text' id='hp' name="hp" value="<?php echo $gb->hp ?>" class='required'>
 				</div>
 				<div class="simple">
-					<label for="saldo">Saldo</label>
-					<input type='text' id='saldo' name="saldo" value="<?php echo $gb->saldo_akhir ?>" class='required'>
+					<label for="saldo_awal">Saldo Awal</label>
+					<input type='text' id='saldo_awal' name="saldo_awal" value="<?php echo $gb->saldo_awal ?>" class='required'>
+				</div>
+				<div class="simple">
+					<label for="saldo_akhir">Saldo Akhir</label>
+					<input type='text' id='saldo_akhir' name="saldo_akhir" value="<?php echo $gb->saldo_akhir ?>" class='required'>
 				</div>
 					<?php $this->session->unset_userdata('error'); ?>
 				<?php endforeach; ?>
@@ -133,7 +139,7 @@
 					<input type='text' id='hp' name="hp" value="<?php echo set_value('hp') ?>">
 				</div>
 				<div class="simple">
-					<label for="saldo">Saldo</label>
+					<label for="saldo">Saldo Awal</label>
 					<input type='text' id='saldo' name="saldo" value="<?php echo set_value('saldo') ?>" class='required'>
 				</div>
 				<?php endif; ?>

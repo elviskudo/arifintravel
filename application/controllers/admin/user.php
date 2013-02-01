@@ -8,15 +8,16 @@ class User extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->library('pagination');
 		$this->load->model('user_model', 'user');
+		$this->load->model('admin_model', 'admin');
 		$this->path = realpath(APPPATH.'../user');
 	}
 
 	function index($offset='') {
-		if($this->session->userdata('level') === '0') {
+		if($this->session->userdata('level') == 0) {
 			$this->session->sess_destroy();
 			redirect('admin/main');
 		}
-		$data['user'] = $this->user->getmail($this->session->userdata('email'));
+		$data['user'] = $this->admin->getmail($this->session->userdata('email'));
 		//$data['alluser'] = $this->user->all();
 		$id = $this->session->userdata('id_user');
 		$data['getuser'] = $this->user->getuser($id);

@@ -9,7 +9,9 @@ class Logout extends CI_Controller {
 	function index() {
 		$data = array(
 			'id_user' => '',
-			'username' => ''
+			'username' => '',
+			'level' => 0,
+			'id_cabang' => ''
 		);
 		$this->session->unset_userdata($data);
 		$this->session->sess_destroy();

@@ -9,18 +9,19 @@ class Transaksi extends CI_Controller {
 		
 		$this->load->model('transaksi_model', 'transaksi');
 		$this->load->model('cabang_model', 'cabang');
+		$this->load->model('admin_model', 'admin');
 		$this->load->model('user_model', 'user');
 	}
 
 	function index($offset = '') {
-		if($this->session->userdata('level') === '0') {
-			$this->session->sess_destroy();
-			redirect('admin/main');
-		}
+		// if(!$this->session->userdata('level')) {
+		// 	$this->session->sess_destroy();
+		// 	redirect('admin/main');
+		// }
 		$id = $this->session->userdata('id_transaksi');
 		$data['gettransaksi'] = $this->transaksi->getp($id);
-		$data['cabang'] = $this->cabang->all();
-		$data['user'] = $this->user->getmail($this->session->userdata('email'));
+		$data['cabang'] = $this->cabang->getnama($this->session->userdata('id_cabang'));
+		$data['user'] = $this->admin->getmail($this->session->userdata('email'));
 		
 		/* pagination */
 		$limit = 5;
