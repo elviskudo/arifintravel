@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2
+-- version 3.5.2.2
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 24, 2013 at 06:01 AM
--- Server version: 5.5.25a
--- PHP Version: 5.4.4
+-- Generation Time: Feb 01, 2013 at 02:47 PM
+-- Server version: 5.5.27
+-- PHP Version: 5.4.7
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,36 @@ SET time_zone = "+00:00";
 --
 -- Database: `arifin`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `id_admin` int(11) NOT NULL AUTO_INCREMENT,
+  `tanggal` int(20) NOT NULL,
+  `id_cabang` int(11) NOT NULL COMMENT 'related with cabang',
+  `email` varchar(255) NOT NULL,
+  `password` varchar(64) NOT NULL,
+  `nama` varchar(128) NOT NULL,
+  `kota` varchar(128) NOT NULL,
+  `telpon` varchar(16) NOT NULL,
+  `hp` varchar(16) NOT NULL,
+  `level` tinyint(1) NOT NULL COMMENT '1: super user 0: pegawai',
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id_admin`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id_admin`, `tanggal`, `id_cabang`, `email`, `password`, `nama`, `kota`, `telpon`, `hp`, `level`, `status`) VALUES
+(1, 1359384806, 1, 'admin@arifintravel.com', 'admin123', 'Mara Bunta', 'Gresik', '081232137', '0877643764', 1, 1),
+(3, 1359389177, 1, 'bagus@arifintravel.com', 'bagus', 'bagus lagi', 'GRESIK', '083984759347', '039845938745', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -42,14 +72,15 @@ CREATE TABLE IF NOT EXISTS `cabang` (
   `saldo_akhir` int(11) NOT NULL,
   `status` int(1) NOT NULL,
   PRIMARY KEY (`id_cabang`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `cabang`
 --
 
 INSERT INTO `cabang` (`id_cabang`, `tanggal`, `id_user`, `nama`, `alamat`, `kota`, `telpon`, `email`, `kontak`, `hp`, `saldo_awal`, `saldo_akhir`, `status`) VALUES
-(1, 1358957250, 'ece902d2', 'Arifin Solo', 'Jl. Bandung 23', 'Solo', '0122327987', 'arifin.solo@gmail.com', 'Gunawan', '087762736476', 2000000, 2240800, 1);
+(1, 1358957250, 'ece902d2', 'GRESIK JAYA', 'Jl. Bandung 23', 'GRESIK', '0122327987', 'arifin.gresik@arifintravel.com', 'Gunawan', '087762736476', 2000000, 2383000, 1),
+(2, 1359385391, 'ece902d2', 'MALANG CITY', 'Jl. Pahlawan', 'MALANG', '034987457', 'malang.city@arifintravel.com', 'budiman', '087734858768', 1500000, 4000000, 1);
 
 -- --------------------------------------------------------
 
@@ -11248,7 +11279,47 @@ INSERT INTO `log` (`tanggal`, `event`, `ip`, `agent`) VALUES
 ('2013-01-23 17:16:53', 'transaksi: delete transaksi bernilai: 56000 dengan keterangan: delete oleh admin@arifintravel.com<br>id: 3', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.52 Safari/537.17');
 INSERT INTO `log` (`tanggal`, `event`, `ip`, `agent`) VALUES
 ('2013-01-23 17:18:25', 'transaksi: delete transaksi bernilai: 250000 dengan keterangan: delete oleh admin@arifintravel.com<br>id: 2', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.52 Safari/537.17'),
-('2013-01-23 17:18:45', 'transaksi: insert jualan kaos oblong dengan keterangan: jual kaos oblong lagi<br>id: 4', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.52 Safari/537.17');
+('2013-01-23 17:18:45', 'transaksi: insert jualan kaos oblong dengan keterangan: jual kaos oblong lagi<br>id: 4', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.52 Safari/537.17'),
+('2013-01-28 15:58:30', 'update cabang&id: 1', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 15:58:30', 'update transaksi cabang&id: 1', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 15:58:37', 'update cabang&id: 1', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 15:58:37', 'update transaksi cabang&id: 1', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 16:03:11', 'insert cabang&id: ', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 16:03:11', 'insert transaksi cabang&id: ', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 16:47:21', 'insert admin&id: 2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:00:27', 'update admin&id: ', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:00:47', 'update admin&id: 2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:01:44', 'update admin&id: 2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:01:50', 'update admin&id: 2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:01:55', 'update admin&id: 2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:03:43', 'update admin&id: 2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:04:13', 'update admin&id: 2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:04:32', 'update admin&id: 2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:05:13', 'update admin&id: 2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:05:17', 'update admin&id: 2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:05:21', 'update admin&id: 2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:05:24', 'update admin&id: 2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:05:33', 'update admin&id: 2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:05:38', 'update admin&id: 2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:05:46', 'delete admin&id: 2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:06:17', 'insert admin&id: 3', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:07:28', 'transaksi: insert jualan baju dengan keterangan: jualan baju di pasar minggu<br>id: 8', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:08:21', 'transaksi: delete transaksi bernilai: 2240800 dengan keterangan: delete oleh admin@arifintravel.com<br>id: 5', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:08:38', 'update cabang&id: 1', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:08:38', 'update transaksi cabang&id: 1', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:08:49', 'transaksi: delete transaksi bernilai: 2240800 dengan keterangan: delete oleh admin@arifintravel.com<br>id: 6', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:08:54', 'transaksi: delete transaksi bernilai: 240800 dengan keterangan: delete oleh admin@arifintravel.com<br>id: 4', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:08:59', 'transaksi: delete transaksi bernilai: 2000000 dengan keterangan: delete oleh admin@arifintravel.com<br>id: 1', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:19:11', 'update cabang&id: 1', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:19:11', 'update transaksi cabang&id: 1', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:45:38', 'update cabang&id: 1', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:45:38', 'update transaksi cabang&id: 1', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:45:50', 'update cabang&id: 1', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:45:50', 'update transaksi cabang&id: 1', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:51:23', 'transaksi: insert jualan baju dengan keterangan: jualan baju lagi<br>id: 1', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-28 17:52:12', 'transaksi: insert jualan kaos oblong dengan keterangan: wah enak nih jualna terus<br>id: 2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-29 03:04:19', 'update admin&id: 3', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-01-29 03:08:35', 'update admin&id: 3', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17');
 
 -- --------------------------------------------------------
 
@@ -24131,17 +24202,15 @@ CREATE TABLE IF NOT EXISTS `transaksi` (
   `nilai` int(1) NOT NULL,
   `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_transaksi`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `transaksi`
 --
 
 INSERT INTO `transaksi` (`id_transaksi`, `tanggal`, `id_user`, `id_cabang`, `judul`, `keterangan`, `nilai`, `status`) VALUES
-(1, 1358957250, 'ece902d2', 1, 'SALDO AWAL CABANG KOTA Solo', 'Saldo awal kantor cabang dengan nama: Arifin Solo yang beralamat di Jl. Bandung 23 kota Solo , kontak person: Gunawan dengan saldo awal sebesar: 0', 2000000, 1),
-(2, 1358957273, 'ece902d2', 1, 'jualan baju', 'jualan batik keris', 250000, 0),
-(3, 1358957293, 'ece902d2', 1, 'jualan kaos oblong', 'kaos oblong enak dipake', 56000, 0),
-(4, 1358957925, 'ece902d2', 1, 'jualan kaos oblong', 'jual kaos oblong lagi', 240800, 1);
+(1, 1359391883, 'ece902d2', 1, 'jualan baju', 'jualan baju lagi', 258000, 1),
+(2, 1359391932, 'ece902d2', 1, 'jualan kaos oblong', 'wah enak nih jualna terus', 125000, 1);
 
 -- --------------------------------------------------------
 
