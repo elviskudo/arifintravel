@@ -12,11 +12,9 @@
 					<tr>
 						<th class='no'>No</th>
 						<th>Nama</th>
-						<th>Alamat</th>
 						<th>Kota</th>
 						<th>Telpon</th>
 						<th>Email</th>
-						<th>Kontak</th>
 						<th>HP</th>
 						<th>Saldo</th>
 						<th class='action'>Action</th>
@@ -28,11 +26,9 @@
 					<tr>
 						<td><?php echo $num ?></td>
 						<td><?php echo $row->nama ?></td>
-						<td><?php echo $row->alamat ?></td>
 						<td><?php echo $row->kota ?></td>
 						<td><?php echo $row->telpon ?></td>
 						<td><?php echo $row->email ?></td>
-						<td><?php echo $row->kontak ?></td>
 						<td><?php echo $row->hp ?></td>
 						<td><?php echo str_replace(',','.',number_format($row->saldo_akhir)) ?></td>
 						<td>

@@ -112,7 +112,7 @@ input[type=button], input[type=submit], div.info a {
 .clear { clear:both; }
 
 /* admin */
-#admin-left { float:left; padding-bottom:20px; padding-right:20px; width:680px; }
+#admin-left { float:left; padding-bottom:20px; padding-right:20px; width:700px; }
 #admin-left table, #admin-left caption { border:1px solid #ccc; }
 #admin-left table {
 	margin-bottom:20px;
