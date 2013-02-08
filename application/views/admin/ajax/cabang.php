@@ -35,9 +35,11 @@
 							<a href="<?php echo base_url() ?>admin/cabang/update_cabang/<?php echo $row->id_cabang ?>">
 								<img src="<?php echo base_url() ?>images/update.gif" alt="Edit Data" title="Edit Data">
 							</a>
+							<?php if($row->id_cabang > 1): ?>
 							<a href="<?php echo base_url() ?>admin/cabang/delete_cabang/<?php echo $row->id_cabang ?>" onclick="return confirm('Apakah kamu yakin untuk menghapus cabang ini?')">
 								<img src="<?php echo base_url() ?>images/delete.gif" alt="Hapus Data" title="Hapus Data">
 							</a>
+							<?php endif ?>
 						</td>
 					</tr>
 					<?php $num++; ?>

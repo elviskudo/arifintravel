@@ -8,11 +8,27 @@
 			<table id='blog'>
 				<caption>
 					transaksi [<?php echo $total ?> data]
-					<div class='insert' style='float:right;text-transform:lowercase;'>
-						<a href="<?php echo base_url() ?>admin/transaksi/insert/">
-							<img src="<?php echo base_url() ?>images/insert.gif" alt="Tambah Data">
-							Tambah Data
-						</a>
+					<div class='insert' style='display:block;float:right;position:relative;text-transform:lowercase;width:210px;z-index:999;'>
+						<form action="<?php echo base_url() ?>admin/transaksi/search" method="post" accept-charset="utf-8" style='float:right;margin:-8px 0'>
+							<div style='float:right;'>
+								<input type='button' id='search' name='search' value='Filter'>
+							</div>
+							<a href="<?php echo base_url() ?>admin/transaksi/insert/" style='display:block;margin-left:450px;margin-top:5px;'>
+								<img src="<?php echo base_url() ?>images/insert.gif" alt="Tambah Kas Masuk">
+								Tambah Kas Masuk
+							</a>
+							<div id="filter" style='background:#ccc;border:1px solid #999;display:block;float:right;padding:5px;'>
+								<div style="margin:5px;width:640px;">
+									<label for="kota" style='float:left;margin-top:5px;margin-right:5px;'>Kantor Cabang</label>
+									<select name="kota" style='float:left;width:120px;margin-right:5px;'>
+										<?php foreach($cabangs as $cb): ?>
+										<option value="<?php echo $cb->id_cabang ?>"><?php echo $cb->nama ?></option>
+										<?php endforeach; ?>
+									</select>
+									<input type="submit" name="submit" value="Go">
+								</div>
+							</div>
+						</form>
 					</div>
 				</caption>
 				<thead>
@@ -61,8 +77,17 @@
 				<?php foreach($gettransaksi as $gb): ?>
 				<div class="simple">
 					<label for="id_cabang">Kantor Cabang</label>
+					<?php if($this->session->userdata('id_cabang') == '1'): ?>
+						<?php $cabang = $this->cabang_model->all() ?>
+					<select name="cabang">
+						<?php foreach($cabang as $cb): ?>
+						<option value="<?php echo $cb->id_cabang ?>"><?php echo $cb->nama ?></option>
+						<?php endforeach ?>
+					</select>
+					<?php else: ?>
 					<input type="hidden" name="id_cabang" value="<?php echo $this->session->userdata('id_cabang') ?>">
 					<input type="text" id="cabang" name="cabang" value="<?php echo $cabang ?>" readonly />
+					<?php endif ?>
 				</div>
 				<div class="simple">
 					<label for="judul">Judul</label>
@@ -85,8 +110,17 @@
 			<form id='insert' action="<?php echo base_url() ?>admin/transaksi/insert_transaksi/" method="post" enctype="multipart/form-data" accept-charset="utf-8">
 				<div class="simple">
 					<label for="id_cabang">Kantor Cabang</label>
+					<?php if($this->session->userdata('id_cabang') == '1'): ?>
+						<?php $cabang = $this->db->order_by('nama')->get('cabang')->result() ?>
+					<select name="cabang">
+						<?php foreach($cabang as $cb): ?>
+						<option value="<?php echo $cb->id_cabang ?>"><?php echo $cb->nama ?></option>
+						<?php endforeach ?>
+					</select>
+					<?php else: ?>
 					<input type="hidden" name="id_cabang" value="<?php echo $this->session->userdata('id_cabang') ?>"/>
 					<input type="text" id="cabang" name="cabang" value="<?php echo $cabang ?>" readonly>
+					<?php endif ?>
 				</div>
 				<div class="simple">
 					<label for="judul">Judul</label>

@@ -8,6 +8,7 @@ class Cabang_model extends CI_Model {
 	
 	function all() {
 		$this->db->where('status', '1');
+		$this->db->order_by('nama');
 		$query = $this->db->get('cabang');
 		return $query->result();
 	}
@@ -15,6 +16,7 @@ class Cabang_model extends CI_Model {
 		$this->db->select($search);
 		$this->db->where('id_cabang', $id);
 		$this->db->where('status', 1);
+		$this->db->order_by('nama');
 		$query = $this->db->get('cabang');
 		$row = $query->row();
 		return $row->$search;
@@ -29,6 +31,7 @@ class Cabang_model extends CI_Model {
 	function getp($id) {
 		$this->db->where('id_cabang', $id);
 		$this->db->where('status', 1);
+		$this->db->order_by('nama');
 		$query = $this->db->get('cabang');
 		return $query->result();
 	}
@@ -38,6 +41,7 @@ class Cabang_model extends CI_Model {
 			FROM cabang
 			WHERE id_cabang=b.id_cabang
 				AND b.id_jam='".$id."'
+			ORDER BY nama_cabang
 		";
 		$query = $this->db->query($query);
 		$row = $query->row();
@@ -45,6 +49,7 @@ class Cabang_model extends CI_Model {
 	}
 	function page($limit, $offset) {
 		$this->db->where('status', 1);
+		$this->db->order_by('nama');
 		$this->db->limit($limit, $offset);
 		$query = $this->db->get('cabang');
 		return $query->result();
@@ -90,7 +95,7 @@ class Cabang_model extends CI_Model {
 			'tanggal' => time(),
 			'id_user' => substr(md5($this->session->userdata('email')),0,8),
 			'id_cabang' => $id_cabang,
-			'judul' => 'SALDO AWAL CABANG KOTA '.$this->input->post('kota'),
+			'judul' => 'SALDO AWAL CABANG KOTA '.strtoupper($this->input->post('kota')),
 			'keterangan' => 'Saldo awal kantor cabang dengan nama: '.$this->input->post('nama').' yang beralamat di '.$this->input->post('alamat').' kota '.$this->input->post('kota').' , kontak person: '.$this->input->post('kontak').' dengan saldo awal sebesar: '.str_replace(',','.',number_format($row->saldo_akhir)),
 			'nilai' => $this->input->post('saldo'),
 			'status' => 1
@@ -119,7 +124,7 @@ class Cabang_model extends CI_Model {
 			'tanggal' => time(),
 			'id_user' => substr(md5($this->session->userdata('email')),0,8),
 			'id_cabang' => $id,
-			'judul' => 'PERUBAHAN SALDO CABANG KOTA '.$this->input->post('kota'),
+			'judul' => 'PERUBAHAN SALDO CABANG KOTA '.strtoupper($this->input->post('kota')),
 			'keterangan' => 'Perubahan saldo awal dari kantor cabang dengan nama: '.$this->input->post('nama').' yang beralamat di '.$this->input->post('alamat').' kota '.$this->input->post('kota').' , kontak person: '.$this->input->post('kontak').' sebesar: '.str_replace(',','.',number_format($row->saldo_akhir)),
 			'nilai' => $this->input->post('saldo'),
 			'status' => 1

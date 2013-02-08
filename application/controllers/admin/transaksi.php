@@ -21,6 +21,7 @@ class Transaksi extends CI_Controller {
 		$id = $this->session->userdata('id_transaksi');
 		$data['gettransaksi'] = $this->transaksi->getp($id);
 		$data['cabang'] = $this->cabang->getnama($this->session->userdata('id_cabang'));
+		$data['cabangs'] = $this->cabang->all();
 		$data['user'] = $this->admin->getmail($this->session->userdata('email'));
 		
 		/* pagination */
