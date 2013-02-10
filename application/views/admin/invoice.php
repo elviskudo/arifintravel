@@ -59,7 +59,7 @@ ifFormat : \"%d/%m/%Y\", // the date format
 button : \"cx_tanggal1\" // ID of the button
 }
 );
-</script>";?>													
+</script>";?>
 									<label for="kota" style='float:left;margin-top:5px;margin-right:5px;'>kota</label>
 									<select name="kota" style='float:left;width:120px;margin-right:5px;'>
 										<option value="semua">semua</option>

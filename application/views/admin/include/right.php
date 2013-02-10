@@ -14,6 +14,8 @@
 	<br />
 	<br />
 	<?php endif ?>
+	<font style="color:#090;font-weight:bold">[ M: <?php echo str_replace(',','.',number_format($kasmasuk)) ?> ]</font>
+	<font style="color:#f60;font-weight:bold">[ K: <?php echo str_replace(',','.',number_format($kaskeluar)) ?> ]</font>
 	<h4>User yang login:</h4>
 	<ul>
 		<?php foreach($user as $row): ?>

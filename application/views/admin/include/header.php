@@ -81,17 +81,11 @@
 							persewaan
 						</a>
 					</li>
+					<?php endif; ?>
 					<li>
 						<a href="<?php echo base_url() ?>admin/transaksi/">
 							<img src="<?php echo base_url() ?>images/show.gif" height="16" width="16" style="height:16px;width:16px" />
-							kas masuk
-						</a>
-					</li>
-					<?php endif; ?>
-					<li>
-						<a href="<?php echo base_url() ?>admin/transaksik/">
-							<img src="<?php echo base_url() ?>images/show.gif" height="16" width="16" style="height:16px;width:16px" />
-							kas keluar
+							kas
 						</a>
 					</li>
 				</ul>
