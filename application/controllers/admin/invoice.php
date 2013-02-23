@@ -11,6 +11,8 @@ class Invoice extends CI_Controller {
 		$this->load->model('admin_model', 'admin');
 		$this->load->model('user_model', 'user');
 		$this->load->model('kota_model', 'kota');
+		$this->load->model('transaksi_model', 'transaksi');
+		$this->load->model('cabang_model', 'cabang');
 	}
 
 	function index($offset = '') {
@@ -24,7 +26,11 @@ class Invoice extends CI_Controller {
 		$data['pesawat'] = $this->invoice->getpesawat();
 		$data['getuser'] = $this->invoice->getalluser();
 		$data['kota'] = $this->kota->all();
-		
+		$data['kasmasuk'] = $this->transaksi->kasmasuk();
+		$data['kaskeluar'] = $this->transaksi->kaskeluar();
+		$data['saldoawal'] = $this->cabang->saldoawal();
+		$data['saldoakhir'] = $this->cabang->saldoakhir();
+
 		if($this->input->post('tanggal_sekian0'))
 			$data['tanggal_sekian0'] = $this->input->post('tanggal_sekian0');
 		if($this->input->post('tanggal_sekian1'))

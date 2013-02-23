@@ -14,8 +14,25 @@
 	<br />
 	<br />
 	<?php endif ?>
-	<font style="color:#090;font-weight:bold">[ M: <?php echo str_replace(',','.',number_format($kasmasuk)) ?> ]</font>
-	<font style="color:#f60;font-weight:bold">[ K: <?php echo str_replace(',','.',number_format($kaskeluar)) ?> ]</font>
+
+	<h4>Arus Kas</h4>
+	<ul>
+		<li>
+			Kas Masuk: <span style="float:right">Rp <?php echo str_replace(',','.',number_format($kasmasuk)) ?></span>
+		</li>
+		<li>
+			Kas Keluar: <span style="float:right">Rp <?php echo str_replace(',','.',number_format($kaskeluar)) ?></span>
+		</li>
+		<li>
+			Saldo Awal: <span style="float:right">Rp <?php echo str_replace(',','.',number_format($saldoawal)) ?></span>
+		</li>
+		<li>
+			Saldo Akhir: <span style="float:right">Rp <?php echo str_replace(',','.',number_format($saldoakhir)) ?></span>
+		</li>
+	</ul>
+	<br />
+	<br />
+
 	<h4>User yang login:</h4>
 	<ul>
 		<?php foreach($user as $row): ?>

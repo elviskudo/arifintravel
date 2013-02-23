@@ -10,6 +10,8 @@ class Penumpang extends CI_Controller {
 		$this->load->model('penumpang_model', 'penumpang');
 		$this->load->model('admin_model', 'admin');
 		$this->load->model('user_model', 'user');
+		$this->load->model('transaksi_model', 'transaksi');
+		$this->load->model('cabang_model', 'cabang');
 	}
 
 	function index($offset = '') {
@@ -37,6 +39,10 @@ class Penumpang extends CI_Controller {
 		} else {
 			$this->load->view('admin/penumpang', $data);
 		}*/
+		$data['kasmasuk'] = $this->transaksi->kasmasuk();
+		$data['kaskeluar'] = $this->transaksi->kaskeluar();
+		$data['saldoawal'] = $this->cabang->saldoawal();
+		$data['saldoakhir'] = $this->cabang->saldoakhir();
 		$data['penumpang'] = $this->penumpang->all();
 		$this->load->view('admin/penumpang', $data);
 	}

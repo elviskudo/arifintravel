@@ -126,8 +126,8 @@ class Tiket_model extends CI_Model {
 		$row = $query->row();
 		return $row->totalbiaya;
 	}
+
 	/* process CRUD */
-	
 	function insert() {
 		/* bikin invoice antar */
 		foreach($this->getNoTiket() as $row) {
@@ -136,7 +136,6 @@ class Tiket_model extends CI_Model {
 		$no = 'TK-'.date('my').'-0'.$combinecode;
 		
 		$biaya = str_replace('.','',$this->input->post('biaya'));
-		
 		
 		/* isi data penukaran */
 		$data = array(
@@ -167,8 +166,34 @@ class Tiket_model extends CI_Model {
 		/* isi data urutan */
 		//echo "test".$combinecode;
 		$this->updateNo($combinecode);
+
+		// isi data transaksi
+		$kota = $this->db->where('id_cabang', $this->input->post('kota'))->get('cabang')->nama;
+		$data = array(
+			'tanggal' => time(),
+			'id_user' => substr(md5($this->session->userdata('email')),0,8),
+			'id_cabang' => $this->input->post('kota'),
+			'judul' => 'Kode booking '.$this->input->post('kodeb').' dari '.$this->input->post('dari'),
+			'keterangan' => 'Tiket dengan nama '.$this->input->post('nama').' dan tanda pengenal '.$this->input->post('pengenal').'
+				yang beralamat di '.$this->input->post('alamat').'
+				telah memesan tiket dengan nomor booking '.$this->input->post('kodeb').' di cabang '.$this->input->post('kota').' 
+				akan diberangkatkan pada tanggal '.$this->tanggalan($this->input->post('tgl_berangkat')).' 
+				melalui maskapai '.$this->input->post('maskapai').' pada jam '.$this->input->post('jam').'
+				sebesar Rp '.$this->input->post('biaya').
+			'arus' => 'masuk',
+			'nilai' => $biaya,
+			'status' => 1
+		);
+		$this->db->insert('transaksi', $data);
+
+		// update data saldo akhir cabang
+		$data = array(
+			'saldo_akhir' => $this->input->post('biaya')
+		);
+		$this->db->where('id_cabang', $this->input->post('kota'));
+		$this->db->update('cabang', $data);
 	}
-	
+
 	function getTiket($no) {
 		$query = "SELECT * from tiket WHERE id_tiket ='".$no."'";
 		$query = $this->db->query($query);

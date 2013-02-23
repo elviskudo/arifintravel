@@ -10,6 +10,8 @@ class Cabang extends CI_Controller {
 		$this->load->model('cabang_model', 'cabang');
 		$this->load->model('admin_model', 'admin');
 		$this->load->model('user_model', 'user');
+		$this->load->model('transaksi_model', 'transaksi');
+		$this->load->model('cabang_model', 'cabang');
 	}
 
 	function index($offset = '') {
@@ -20,6 +22,10 @@ class Cabang extends CI_Controller {
 		$id = $this->session->userdata('id_cabang');
 		$data['getcabang'] = $this->cabang->getp($id);
 		$data['user'] = $this->admin->getmail($this->session->userdata('email'));
+		$data['kasmasuk'] = $this->transaksi->kasmasuk();
+		$data['kaskeluar'] = $this->transaksi->kaskeluar();
+		$data['saldoawal'] = $this->cabang->saldoawal();
+		$data['saldoakhir'] = $this->cabang->saldoakhir();
 		
 		/* pagination */
 		$limit = 5;

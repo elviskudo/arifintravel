@@ -33,33 +33,29 @@ echo "<option value='".$pw->id_pesawat."'>".$pw->no." - ".$pw->nama.": ".$pw->ja
 </select><br><br><br>
 									<label for="tanggal_sekian0" style='float:left;margin-top:5px;margin-right:5px;'>tanggal</label>
 									<input type='text' id="tanggal0" name="tanggal_sekian0" value="<?php echo date("d/m/Y") ?>" style='float:left;width:70px;margin-right:5px;'>
-									<? 
-echo " 
-<img src=\"".base_url()."images/ew_calendar.gif\" id=\"cx_tanggal0\" alt=\"Pick a Date\" style=\"cursor:pointer;cursor:hand;float:left;margin-top:5px;margin-right:5px;\"> 
-<script type=\"text/javascript\">
+<img src="<?php echo base_url() ?>images/ew_calendar.gif" id="cx_tanggal0" alt="Pick a Date" style="cursor:pointer;cursor:hand;float:left;margin-top:5px;margin-right:5px;"> 
+<script type="text/javascript">
 Calendar.setup(
 {
-inputField : \"tanggal0\", // ID of the input field
-ifFormat : \"%d/%m/%Y\", // the date format
-button : \"cx_tanggal0\" // ID of the button
+inputField : "tanggal0", // ID of the input field
+ifFormat : "%d/%m/%Y", // the date format
+button : "cx_tanggal0" // ID of the button
 }
 );
-</script>";?>
+</script>
 									
 									<label for="tanggal_sekian1" style='float:left;margin-top:5px;margin-right:5px;'>s/d</label>
 									<input type='text' id='tanggal1' name="tanggal_sekian1" value="<?php echo date('d/m/Y') ?>" style='float:left;width:70px;margin-right:5px;'>
-<? 
-echo " 
-<img src=\"".base_url()."images/ew_calendar.gif\" id=\"cx_tanggal1\" alt=\"Pick a Date\" style=\"cursor:pointer;cursor:hand;float:left;margin-top:5px;margin-right:5px;\"> 
-<script type=\"text/javascript\">
+<img src="<?php echo base_url() ?>images/ew_calendar.gif" id="cx_tanggal1" alt="Pick a Date" style="cursor:pointer;cursor:hand;float:left;margin-top:5px;margin-right:5px;"> 
+<script type="text/javascript">
 Calendar.setup(
 {
-inputField : \"tanggal1\", // ID of the input field
-ifFormat : \"%d/%m/%Y\", // the date format
-button : \"cx_tanggal1\" // ID of the button
+inputField : "tanggal1", // ID of the input field
+ifFormat : "%d/%m/%Y", // the date format
+button : "cx_tanggal1" // ID of the button
 }
 );
-</script>";?>
+</script>
 									<label for="kota" style='float:left;margin-top:5px;margin-right:5px;'>kota</label>
 									<select name="kota" style='float:left;width:120px;margin-right:5px;'>
 										<option value="semua">semua</option>

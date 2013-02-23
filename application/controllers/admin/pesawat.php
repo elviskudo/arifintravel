@@ -10,6 +10,8 @@ class Pesawat extends CI_Controller {
 		$this->load->model('pesawat_model', 'pesawat');
 		$this->load->model('admin_model', 'admin');
 		$this->load->model('user_model', 'user');
+		$this->load->model('transaksi_model', 'transaksi');
+		$this->load->model('cabang_model', 'cabang');
 	}
 
 	function index($offset = '') {
@@ -25,6 +27,10 @@ class Pesawat extends CI_Controller {
 		$limit = 5;
 		$total = $this->pesawat->count();
 		$data['pesawat'] = $this->pesawat->page($limit, $offset);
+		$data['kasmasuk'] = $this->transaksi->kasmasuk();
+		$data['kaskeluar'] = $this->transaksi->kaskeluar();
+		$data['saldoawal'] = $this->cabang->saldoawal();
+		$data['saldoakhir'] = $this->cabang->saldoakhir();
 		$data['total'] = $total;
 		
 		$config['base_url'] = base_url().'admin/pesawat/index/';

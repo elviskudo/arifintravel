@@ -47,20 +47,18 @@ class Transaksi_model extends CI_Model {
 		$tahun = substr($tanggal,6,4);
 		$bulan = substr($tanggal,3,2);
 		$tanggal = substr($tanggal,0,2);
-		$tanggal_antar = $tahun.'-'.$bulan.'-'.$tanggal;
-		return $tanggal_antar;
+		$tanggal = $tahun.'-'.$bulan.'-'.$tanggal;
+		return $tanggal;
 	}
-	function searchq($id_cabang, $arus, $tanggal1, $tanggal2, $limit, $offset) {
-		if($offset == '')
-			$offset = 0;
+	function searchq() {
 		$query = "
-			SELECT a.id_transaksi, a.tanggal, b.nama, a.judul, a.keterangan, a.nilai, a.status
+			SELECT a.id_transaksi, a.tanggal, b.nama, a.judul, a.keterangan, a.nilai, a.arus, a.status
 			FROM transaksi a, cabang b
 			WHERE a.id_cabang = b.id_cabang
 				AND a.status = 1
 		";
-		if($id_cabang != 0)
-			$query .= " AND a.id_cabang = ".$id_cabang."
+		if($this->input->post('kota') != 0)
+			$query .= " AND a.id_cabang = ".$this->input->post('kota')."
 		";
 		if($this->input->post('tanggal_sekian0') != '__/__/____')
 			$tanggal1 = $this->tanggalan($this->input->post('tanggal_sekian0'));
@@ -73,23 +71,21 @@ class Transaksi_model extends CI_Model {
 				$query .= " AND a.tanggal >= UNIX_TIMESTAMP('".$tanggal1." 00:00:00') AND a.tanggal <= UNIX_TIMESTAMP('".$tanggal1." 23:59:59')";
 		}
 		$query .= "
-				AND a.arus = '".$arus."'
 			ORDER BY a.tanggal DESC
-			LIMIT ".$limit." OFFSET ".$offset."
 		";
 
 		$query = $this->db->query($query);
 		return $query->result();
 	}
-	function countq($id_cabang, $arus, $tanggal1, $tanggal2) {
+	function countq() {
 		$query = "
 			SELECT COUNT(a.id_cabang) AS total
 			FROM transaksi a, cabang b
 			WHERE a.id_cabang = b.id_cabang
 				AND a.status = 1
 		";
-		if($id_cabang != 0)
-			$query .= " AND a.id_cabang = ".$id_cabang."
+		if($this->input->post('kota') != 0)
+			$query .= " AND a.id_cabang = ".$this->input->post('kota')."
 		";
 		if($this->input->post('tanggal_sekian0') != '__/__/____')
 			$tanggal1 = $this->tanggalan($this->input->post('tanggal_sekian0'));
@@ -101,39 +97,40 @@ class Transaksi_model extends CI_Model {
 			else
 				$query .= " AND a.tanggal >= UNIX_TIMESTAMP('".$tanggal1." 00:00:00') AND a.tanggal <= UNIX_TIMESTAMP('".$tanggal1." 23:59:59')";
 		}
-		$query .= "
-				AND a.arus = '".$arus."'
-		";
 
 		$query = $this->db->query($query);
 		return $query->row()->total;
 	}
-	function kasmasuk($tanggal1=NULL, $tanggal2=NULL) {
+	function kasmasuk($cabang=0, $tanggal1=NULL, $tanggal2=NULL) {
 		$query = "
 			SELECT SUM(nilai) AS kasmasuk
 			FROM transaksi
 			WHERE arus = 'masuk'
 		";
-		if($tanggal1 != NULL && $tanggal2 != NULL)
-			$query .= "AND tanggal >= UNIX_TIMESTAMP('".$tanggal1." 00:00:00') AND tanggal <= UNIX_TIMESTAMP('".$tanggal2." 23:59:59')";
+		if($cabang != 0)
+			$query .= " AND id_cabang = ".$cabang;
+		if($this->tanggalan($tanggal1) != NULL && $this->tanggalan($tanggal2) != NULL)
+			$query .= " AND tanggal >= UNIX_TIMESTAMP('".$this->tanggalan($tanggal1)." 00:00:00') AND tanggal <= UNIX_TIMESTAMP('".$this->tanggalan($tanggal2)." 23:59:59')";
 		if($this->session->userdata('email') != 'admin@arifintravel.com')
-			$query .= "AND id_cabang = ".$this->session->userdata('id_cabang');
+			$query .= " AND id_cabang = ".$this->session->userdata('id_cabang');
 		$row = $this->db->query($query)->row();
 		if($row->kasmasuk == NULL)
 			return 0;
 		else
 			return $row->kasmasuk;
 	}
-	function kaskeluar($tanggal1=NULL, $tanggal2=NULL) {
+	function kaskeluar($cabang=0, $tanggal1=NULL, $tanggal2=NULL) {
 		$query = "
 			SELECT SUM(nilai) AS kaskeluar
 			FROM transaksi
 			WHERE arus = 'keluar'
 		";
+		if($cabang != 0)
+			$query .= " AND id_cabang = ".$cabang;
 		if($tanggal1 != NULL && $tanggal2 != NULL)
-			$query .= "AND tanggal >= UNIX_TIMESTAMP('".$tanggal1." 00:00:00') AND tanggal <= UNIX_TIMESTAMP('".$tanggal2." 23:59:59')";
+			$query .= " AND tanggal >= UNIX_TIMESTAMP('".$this->tanggalan($tanggal1)." 00:00:00') AND tanggal <= UNIX_TIMESTAMP('".$this->tanggalan($tanggal2)." 23:59:59')";
 		if($this->session->userdata('email') != 'admin@arifintravel.com')
-			$query .= "AND id_cabang = ".$this->session->userdata('id_cabang');
+			$query .= " AND id_cabang = ".$this->session->userdata('id_cabang');
 		$row = $this->db->query($query)->row();
 		if($row->kaskeluar == NULL)
 			return 0;
@@ -144,7 +141,7 @@ class Transaksi_model extends CI_Model {
 		if($offset == '')
 			$offset = 0;
 		$query = "
-			SELECT a.id_transaksi, a.tanggal, b.nama, a.judul, a.keterangan, a.nilai, a.status
+			SELECT a.id_transaksi, a.tanggal, b.nama, a.judul, a.keterangan, a.nilai, a.arus, a.status
 			FROM transaksi a, cabang b
 			WHERE a.id_cabang = b.id_cabang
 				AND a.status = 1
@@ -227,6 +224,32 @@ class Transaksi_model extends CI_Model {
 
 		// insert log
 		$this->log('update '.$this->input->post('judul'), $this->input->post('keterangan'), $id_transaksi);
+
+		// isi data transaksi
+		$kota = $this->db->where('id_cabang', $this->input->post('kota'))->get('cabang')->nama;
+		$data = array(
+			'tanggal' => time(),
+			'id_user' => substr(md5($this->session->userdata('email')),0,8),
+			'id_cabang' => $this->input->post('kota'),
+			'judul' => 'Kode booking '.$this->input->post('kodeb').' dari '.$this->input->post('dari'),
+			'keterangan' => 'Tiket dengan nama '.$this->input->post('nama').' dan tanda pengenal '.$this->input->post('pengenal').'
+				yang beralamat di '.$this->input->post('alamat').'
+				telah memesan tiket dengan nomor booking '.$this->input->post('kodeb').' di cabang '.$this->input->post('kota').' 
+				akan diberangkatkan pada tanggal '.$this->tanggalan($this->input->post('tgl_berangkat')).' 
+				melalui maskapai '.$this->input->post('maskapai').' pada jam '.$this->input->post('jam').'
+				sebesar Rp '.$this->input->post('biaya'),
+			'arus' => 'masuk',
+			'nilai' => $biaya,
+			'status' => 1
+		);
+		$this->db->insert('transaksi', $data);
+
+		// update data saldo akhir cabang
+		$data = array(
+			'saldo_akhir' => $this->input->post('biaya')
+		);
+		$this->db->where('id_cabang', $this->input->post('kota'));
+		$this->db->update('cabang', $data);
 	}
 	function delete($id) {
 		$data = array(

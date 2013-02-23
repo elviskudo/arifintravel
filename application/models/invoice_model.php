@@ -373,6 +373,87 @@ class Invoice_model extends CI_Model {
 		$tanggal_antar = $tahun.'-'.$bulan.'-'.$tanggal;
 		return $tanggal_antar;
 	}
+	function getp($id) {
+		$query = "
+			SELECT a.tanggal as tanggal, a.no as no, b.nama as pesawat, c.nama as user, 
+				a.tujuan as kota, a.id_pesawat as id_pesawat, a.id_user as id_user,
+				a.orang as orang, a.id_invoice as id_invoice, c.ktp as ktp,
+				c.telpon as telpon, a.catatan as catatan, a.status as status, c.alamat as alamat,
+				a.tanggal_antar as tanggal_antar, a.jam as jam, a.biaya as biaya, a.jasa as jasa
+			FROM invoice a, pesawat b, user c 
+			WHERE a.id_pesawat = b.id_pesawat
+				AND a.id_user = c.id_user 
+				AND a.id_invoice = '".$id."'
+		";
+		$query = $this->db->query($query);
+		return $query->result();
+	}
+	function page($limit, $offset) {
+		if($offset == '') $offset = 0;
+		$query = "
+			SELECT a.tanggal as tanggal, a.no as no, b.nama as pesawat, c.nama as user, a.status as status,
+				a.tujuan as kota, a.orang as orang, a.id_invoice, c.telpon as telpon, a.catatan as catatan,
+				a.tanggal_antar as tanggal_antar, a.jam as jam, (a.biaya * a.orang) as biaya, a.jasa as jasa, c.alamat as alamat
+			FROM invoice a, pesawat b, user c 
+			WHERE a.id_pesawat = b.id_pesawat
+				AND a.id_user = c.id_user 
+				AND a.tanggal >= '".date("Y-m-d")." 00:00:00' AND a.tanggal <= '".date("Y-m-d")." 23:59:59'
+			ORDER BY tanggal DESC";
+			//LIMIT ".$offset.", ".$limit."
+		//";
+		$query = $this->db->query($query);
+		return $query->result();
+	}
+    function pagep($limit, $offset) {
+		if($offset == '') $offset = 0;
+		$query = "
+			SELECT a.tanggal as tanggal, a.no as no, b.nama as pesawat, p.nama as user, a.status as status,
+				a.tujuan as kota, a.orang as orang, a.id_invoice, c.telpon as telpon, a.catatan as catatan,
+				b.no as no_pesawat, a.jam as jam, a.biaya as biaya,
+				a.jasa as jasa, p.alamat as alamat, b.jam as jam_pesawat
+			FROM invoice a, pesawat b, user c, penumpang p
+			WHERE a.id_pesawat = b.id_pesawat
+				AND a.id_user = c.id_user AND a.no = p.no
+				AND a.tanggal_antar >= '".date("Y-m-d")." 00:00:00' AND a.tanggal_antar <= '".date("Y-m-d")." 23:59:59'
+			ORDER BY tanggal DESC";
+			//LIMIT ".$offset.", ".$limit."
+		//";
+		$query = $this->db->query($query);
+		return $query->result();
+	}
+	function total() {
+		$query = "
+			SELECT SUM(a.biaya * a.orang) as totalbiaya
+			FROM invoice a, pesawat b, user c 
+			WHERE a.id_pesawat = b.id_pesawat
+				AND a.id_user = c.id_user 
+				AND a.tanggal >= '".date("Y-m-d")." 00:00:00' AND a.tanggal <= '".date("Y-m-d")." 23:59:59'
+		";
+		$query = $this->db->query($query);
+		$row = $query->row();
+		return $row->totalbiaya;
+	}
+	function count() {
+		$query = "
+			SELECT a.tanggal as tanggal, a.no as no, b.nama as pesawat, c.nama as user, a.status as status,
+				a.tujuan as kota, a.orang as orang, a.id_invoice, c.telpon as telpon, a.catatan as catatan,
+				a.tanggal_antar as tanggal_antar, a.jam as jam, a.biaya as biaya, a.jasa as jasa, c.alamat as alamat
+			FROM invoice a, pesawat b, user c 
+			WHERE a.id_pesawat = b.id_pesawat
+				AND a.id_user = c.id_user 
+			ORDER BY tanggal DESC
+		";
+		$query = $this->db->query($query);
+		return $query->num_rows();
+	}
+	
+	function getNoInvoice($id) {
+		$query = "SELECT nomor from urutan WHERE jenis ='".$id."'";
+		$query = $this->db->query($query);
+		return $query->result();
+	}
+	
+	/* process CRUD */
 	function insert() {
 		/* bikin invoice antar */
 		$waktu = $this->input->post('waktu').date('H:i:s');
@@ -423,6 +504,29 @@ class Invoice_model extends CI_Model {
 			'status' => $status
 		);
 		$this->db->insert('invoice', $data);
+
+		// isi data transaksi
+		$kota = $this->db->where('id_cabang', $this->input->post('kota'))->get('cabang')->nama;
+		$data = array(
+			'tanggal' => time(),
+			'id_user' => substr(md5($this->session->userdata('email')),0,8),
+			'id_cabang' => $this->input->post('kota'),
+			'judul' => 'Pengantaran dengan tujuan '.$kota,
+			'keterangan' => 'Pengantaran dengan tujuan '.$kota.'
+				pada tanggal '.date('d M Y', $this->input->post('waktu')).'
+				jam '.$this->input->post('jam').' sebesar Rp '.$biaya,
+			'arus' => 'masuk',
+			'nilai' => $biaya,
+			'status' => 1
+		);
+		$this->db->insert('transaksi', $data);
+
+		// update data saldo akhir cabang
+		$data = array(
+			'saldo_akhir' => $biaya
+		);
+		$this->db->where('id_cabang', $this->input->post('kota'));
+		$this->db->update('cabang', $data);
 		
 		/* isi data urutan */
 		//echo "test".$combinecode;
@@ -459,7 +563,30 @@ class Invoice_model extends CI_Model {
 			'status' => 0
 		);
 		$this->db->insert('invoice', $data);
-			
+		
+		// isi data transaksi
+		$kota = $this->db->where('id_cabang', $this->input->post('kota'))->get('cabang')->nama;
+		$data = array(
+			'tanggal' => time(),
+			'id_user' => substr(md5($this->session->userdata('email')),0,8),
+			'id_cabang' => $this->input->post('kota'),
+			'judul' => 'Pengantaran '.count($this->input->post('orang')).' orang dengan tujuan '.$kota,
+			'keterangan' => 'Pengantaran '.count($this->input->post('orang')).' orang dengan tujuan '.$kota.'
+				pada tanggal '.date('d M Y', $this->input->post('waktu')).'
+				jam '.$this->input->post('jam').' sebesar Rp '.$biaya,
+			'arus' => 'masuk',
+			'nilai' => $biaya,
+			'status' => 1
+		);
+		$this->db->insert('transaksi', $data);
+
+		// update data saldo akhir cabang
+		$data = array(
+			'saldo_akhir' => $biaya
+		);
+		$this->db->where('id_cabang', $this->input->post('kota'));
+		$this->db->update('cabang', $data);
+		
 		for($i = 1; $i <= $this->input->post('orang'); $i++) {
 			/* isi data penumpang */
 			if($i == 1)
@@ -480,87 +607,6 @@ class Invoice_model extends CI_Model {
 		/* isi data urutan */
 		$this->updateNo($combinecode, "pengantaran");
 	}
-	function getp($id) {
-		$query = "
-			SELECT a.tanggal as tanggal, a.no as no, b.nama as pesawat, c.nama as user, 
-				a.tujuan as kota, a.id_pesawat as id_pesawat, a.id_user as id_user,
-				a.orang as orang, a.id_invoice as id_invoice, c.ktp as ktp,
-				c.telpon as telpon, a.catatan as catatan, a.status as status, c.alamat as alamat,
-				a.tanggal_antar as tanggal_antar, a.jam as jam, a.biaya as biaya, a.jasa as jasa
-			FROM invoice a, pesawat b, user c 
-			WHERE a.id_pesawat = b.id_pesawat
-				AND a.id_user = c.id_user 
-				AND a.id_invoice = '".$id."'
-		";
-		$query = $this->db->query($query);
-		return $query->result();
-	}
-	function page($limit, $offset) {
-		if($offset == '') $offset = 0;
-		$query = "
-			SELECT a.tanggal as tanggal, a.no as no, b.nama as pesawat, c.nama as user, a.status as status,
-				a.tujuan as kota, a.orang as orang, a.id_invoice, c.telpon as telpon, a.catatan as catatan,
-				a.tanggal_antar as tanggal_antar, a.jam as jam, (a.biaya * a.orang) as biaya, a.jasa as jasa, c.alamat as alamat
-			FROM invoice a, pesawat b, user c 
-			WHERE a.id_pesawat = b.id_pesawat
-				AND a.id_user = c.id_user 
-				AND a.tanggal >= '".date("Y-m-d")." 00:00:00' AND a.tanggal <= '".date("Y-m-d")." 23:59:59'
-			ORDER BY tanggal DESC";
-			//LIMIT ".$offset.", ".$limit."
-		//";
-		$query = $this->db->query($query);
-		return $query->result();
-	}
-        function pagep($limit, $offset) {
-		if($offset == '') $offset = 0;
-		$query = "
-			SELECT a.tanggal as tanggal, a.no as no, b.nama as pesawat, p.nama as user, a.status as status,
-				a.tujuan as kota, a.orang as orang, a.id_invoice, c.telpon as telpon, a.catatan as catatan,
-				b.no as no_pesawat, a.jam as jam, a.biaya as biaya,
-				a.jasa as jasa, p.alamat as alamat, b.jam as jam_pesawat
-			FROM invoice a, pesawat b, user c, penumpang p
-			WHERE a.id_pesawat = b.id_pesawat
-				AND a.id_user = c.id_user AND a.no = p.no
-				AND a.tanggal_antar >= '".date("Y-m-d")." 00:00:00' AND a.tanggal_antar <= '".date("Y-m-d")." 23:59:59'
-			ORDER BY tanggal DESC";
-			//LIMIT ".$offset.", ".$limit."
-		//";
-		$query = $this->db->query($query);
-		return $query->result();
-	}
-	function total() {
-		$query = "
-			SELECT SUM(a.biaya * a.orang) as totalbiaya
-			FROM invoice a, pesawat b, user c 
-			WHERE a.id_pesawat = b.id_pesawat
-				AND a.id_user = c.id_user 
-				AND a.tanggal >= '".date("Y-m-d")." 00:00:00' AND a.tanggal <= '".date("Y-m-d")." 23:59:59'
-		";
-		$query = $this->db->query($query);
-		$row = $query->row();
-		return $row->totalbiaya;
-	}
-	function count() {
-		$query = "
-			SELECT a.tanggal as tanggal, a.no as no, b.nama as pesawat, c.nama as user, a.status as status,
-				a.tujuan as kota, a.orang as orang, a.id_invoice, c.telpon as telpon, a.catatan as catatan,
-				a.tanggal_antar as tanggal_antar, a.jam as jam, a.biaya as biaya, a.jasa as jasa, c.alamat as alamat
-			FROM invoice a, pesawat b, user c 
-			WHERE a.id_pesawat = b.id_pesawat
-				AND a.id_user = c.id_user 
-			ORDER BY tanggal DESC
-		";
-		$query = $this->db->query($query);
-		return $query->num_rows();
-	}
-	
-	function getNoInvoice($id) {
-		$query = "SELECT nomor from urutan WHERE jenis ='".$id."'";
-		$query = $this->db->query($query);
-		return $query->result();
-	}
-	
-	/* process CRUD */
 	function updateNo($nomor, $jenis) {
 		$no = $nomor+1;
 	    $data = array('nomor' => $no);
@@ -573,6 +619,12 @@ class Invoice_model extends CI_Model {
 		} else {
 			$tanggalan = $this->tanggalan($this->input->post('tanggal_antar'));
 		}
+
+		// get data biaya pada invoice
+		$row = $this->db->select('biaya')->$this->db->where('id_invoice', $id)->get('invoice')->row();
+		$biaya_asal = $row->biaya;
+
+		// update invoice
 		$data = array(
 			'tujuan' => $this->input->post('kota'),
 			'tanggal_antar' => $tanggalan,
@@ -584,6 +636,34 @@ class Invoice_model extends CI_Model {
 		);
 		$this->db->where('id_invoice', $id);
 		$this->db->update('invoice', $data);
+
+		// isi data transaksi
+		$kota = $this->db->where('id_cabang', $this->input->post('kota'))->get('cabang')->nama;
+		$data = array(
+			'tanggal' => time(),
+			'id_user' => substr(md5($this->session->userdata('email')),0,8),
+			'id_cabang' => $this->input->post('kota'),
+			'judul' => 'Edit nomor invoice '.$id.' dengan tujuan '.$this->input->post('kota'),
+			'keterangan' => 'Edit nomor invoice '.$id.' dengan tujuan '.$this->input->post('kota').'
+				pada tanggal antar '.$tanggalan.'
+				jam '.$this->input->post('jam').' sebesar Rp '.$this->input->post('biaya'),
+			'arus' => 'keluar',
+			'nilai' => $biaya,
+			'status' => 1
+		);
+		$this->db->insert('transaksi', $data);
+
+		// kurangi saldo akhir baru kemudian insert dengan biaya yang baru diedit
+		$data = array('saldo_akhir' => $biaya_asal);
+		$this->db->where('id_cabang', $this->input->post('kota'));
+		$this->db->update('cabang', $data);
+
+		// update data saldo akhir cabang
+		$data = array(
+			'saldo_akhir' => $biaya
+		);
+		$this->db->where('id_cabang', $this->input->post('kota'));
+		$this->db->update('cabang', $data);
 	}
 	function update1($id) {
 		$data = array('status' => 1);

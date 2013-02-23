@@ -10,6 +10,8 @@ class Jam extends CI_Controller {
 		$this->load->model('jam_model', 'jam');
 		$this->load->model('admin_model', 'admin');
 		$this->load->model('user_model', 'user');
+		$this->load->model('transaksi_model', 'transaksi');
+		$this->load->model('cabang_model', 'cabang');
 	}
 
 	function index($offset = '') {
@@ -22,6 +24,10 @@ class Jam extends CI_Controller {
 		$data['user'] = $this->admin->getmail($this->session->userdata('email'));
 		$data['pesawat'] = $this->jam->pesawat();
 		$data['kota'] = $this->jam->kota();
+		$data['kasmasuk'] = $this->transaksi->kasmasuk();
+		$data['kaskeluar'] = $this->transaksi->kaskeluar();
+		$data['saldoawal'] = $this->cabang->saldoawal();
+		$data['saldoakhir'] = $this->cabang->saldoakhir();
 		
 		/* pagination */
 		$limit = 5;

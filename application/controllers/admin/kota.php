@@ -10,6 +10,8 @@ class Kota extends CI_Controller {
 		$this->load->model('admin_model', 'admin');
 		$this->load->model('kota_model', 'kota');
 		$this->load->model('user_model', 'user');
+		$this->load->model('transaksi_model', 'transaksi');
+		$this->load->model('cabang_model', 'cabang');
 	}
 
 	function index($offset = '') {
@@ -26,6 +28,10 @@ class Kota extends CI_Controller {
 		$total = $this->kota->count();
 		$data['kota'] = $this->kota->page($limit, $offset);
 		$data['total'] = $total;
+		$data['kasmasuk'] = $this->transaksi->kasmasuk();
+		$data['kaskeluar'] = $this->transaksi->kaskeluar();
+		$data['saldoawal'] = $this->cabang->saldoawal();
+		$data['saldoakhir'] = $this->cabang->saldoakhir();
 		
 		$config['base_url'] = base_url().'admin/kota/index/';
 		$config['total_rows'] = $total;

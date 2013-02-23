@@ -51,11 +51,6 @@
 									});
 									</script>
 
-									<label for="kas" style='float:left;width:70px;margin-right:5px;'>Kas</label>
-									<select name="arus" style='float:left;width:70px;margin-right:5px;'>
-										<option value="masuk">Masuk</option>
-										<option value="keluar" selected>Keluar</option>
-									</select>
 									<input type="submit" name="submit" value="Go">
 								</div>
 							</div>
@@ -68,6 +63,7 @@
 						<th>Tanggal</th>
 						<th>Judul</th>
 						<th>Cabang</th>
+						<th>Arus</th>
 						<th>Nilai</th>
 						<th class='action'>Action</th>
 					</tr>
@@ -80,6 +76,7 @@
 						<td><?php echo date('d M Y H:i:s', $row->tanggal) ?></td>
 						<td><?php echo $row->judul ?></td>
 						<td><?php echo $row->nama ?></td>
+						<td><?php echo $row->arus ?></td>
 						<td><?php echo str_replace(',','.',number_format($row->nilai)) ?></td>
 						<td>
 							<a href="<?php echo base_url() ?>admin/transaksi/delete_transaksi/<?php echo $row->id_transaksi ?>" onclick="return confirm('Apakah kamu yakin untuk menghapus transaksi ini?')">

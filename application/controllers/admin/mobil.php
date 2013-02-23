@@ -10,6 +10,8 @@ class Mobil extends CI_Controller {
 		$this->load->model('mobil_model', 'mobil');
 		$this->load->model('admin_model', 'admin');
 		$this->load->model('user_model', 'user');
+		$this->load->model('transaksi_model', 'transaksi');
+		$this->load->model('cabang_model', 'cabang');
 	}
 
 	function index($offset = '') {
@@ -26,6 +28,10 @@ class Mobil extends CI_Controller {
 		$total = $this->mobil->count();
 		$data['mobil'] = $this->mobil->page($limit, $offset);
 		$data['total'] = $total;
+		$data['kasmasuk'] = $this->transaksi->kasmasuk();
+		$data['kaskeluar'] = $this->transaksi->kaskeluar();
+		$data['saldoawal'] = $this->cabang->saldoawal();
+		$data['saldoakhir'] = $this->cabang->saldoakhir();
 		
 		$config['base_url'] = base_url().'admin/mobil/index/';
 		$config['total_rows'] = $total;

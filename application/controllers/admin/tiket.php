@@ -8,7 +8,8 @@ class Tiket extends CI_Controller {
 		$this->load->library('pagination');
 		
 		$this->load->model('tiket_model', 'tiket');
-		//$this->load->model('kota_model', 'kota');
+		$this->load->model('transaksi_model', 'transaksi');
+		$this->load->model('cabang_model', 'cabang');
 		$this->load->model('admin_model', 'admin');
 		$this->load->model('user_model', 'user');
 	}
@@ -61,6 +62,10 @@ class Tiket extends CI_Controller {
 		$data['kota'] = $this->kota->all();
 		$data['total'] = $total;
 		$data['page_link'] = $this->pagination->create_links();
+		$data['kasmasuk'] = $this->transaksi->kasmasuk();
+		$data['kaskeluar'] = $this->transaksi->kaskeluar();
+		$data['saldoawal'] = $this->cabang->saldoawal();
+		$data['saldoakhir'] = $this->cabang->saldoakhir();
 		
 		if(IS_AJAX) {
 			$this->load->view('admin/ajax/tiket', $data);

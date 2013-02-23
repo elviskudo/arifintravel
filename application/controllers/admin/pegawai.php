@@ -10,6 +10,7 @@ class Pegawai extends CI_Controller {
 		$this->load->model('admin_model', 'admin');
 		$this->load->model('user_model', 'user');
 		$this->load->model('cabang_model', 'cabang');
+		$this->load->model('transaksi_model', 'transaksi');
 	}
 
 	function index($offset = '') {
@@ -28,6 +29,10 @@ class Pegawai extends CI_Controller {
 		$data['pegawai'] = $this->admin->page($limit, $offset);
 		$data['cabang'] = $this->cabang->all();
 		$data['total'] = $total;
+		$data['kasmasuk'] = $this->transaksi->kasmasuk();
+		$data['kaskeluar'] = $this->transaksi->kaskeluar();
+		$data['saldoawal'] = $this->cabang->saldoawal();
+		$data['saldoakhir'] = $this->cabang->saldoakhir();
 		
 		$config['base_url'] = base_url().'admin/pegawai/index/';
 		$config['total_rows'] = $total;

@@ -9,6 +9,8 @@ class Login extends CI_Controller {
 		$this->load->model('admin_model', 'admin');
 		$this->load->model('invoice_model', 'invoice');
 		$this->load->model('invoicej_model', 'invoicej');
+		$this->load->model('transaksi_model', 'transaksi');
+		$this->load->model('cabang_model', 'cabang');
 	}
 
 	function index() {
@@ -95,6 +97,10 @@ class Login extends CI_Controller {
 					$this->session->set_userdata($data);
 					if($row->level == 0)
 						redirect('admin/transaksi');
+					$data['kasmasuk'] = $this->transaksi->kasmasuk();
+					$data['kaskeluar'] = $this->transaksi->kaskeluar();
+					$data['saldoawal'] = $this->cabang->saldoawal();
+					$data['saldoakhir'] = $this->cabang->saldoakhir();
 					$data['statusantar'] = $this->invoice->getstatus();
 					$data['statusjemput'] = $this->invoicej->getstatus();
 					$data['user'] = $this->admin->getmail($this->session->userdata('email'));

@@ -59,6 +59,30 @@ class Cabang_model extends CI_Model {
 		$query = $this->db->get('cabang');
 		return $query->num_rows();
 	}
+	function saldoawal() {
+		if($this->session->userdata('level') == 1) {
+			$this->db->select('SUM(saldo_awal) AS saldo_awal');
+			$row = $this->db->get('cabang')->row();
+			return $row->saldo_awal;
+		} else {
+			$this->db->select('saldo_awal');
+			$this->db->where('id_cabang', $this->session->userdata('id_cabang'));
+			$row = $this->db->get('cabang')->row();
+			return $row->saldo_awal;
+		}
+	}
+	function saldoakhir() {
+		if($this->session->userdata('level') == 1) {
+			$this->db->select('SUM(saldo_akhir) AS saldo_akhir');
+			$row = $this->db->get('cabang')->row();
+			return $row->saldo_akhir;
+		} else {
+			$this->db->select('saldo_akhir');
+			$this->db->where('id_cabang', $this->session->userdata('id_cabang'));
+			$row = $this->db->get('cabang')->row();
+			return $row->saldo_akhir;
+		}
+	}
 	
 	/* process CRUD */
 	function log($isi, $id_cabang) {

@@ -11,6 +11,8 @@ class Penukaran extends CI_Controller {
 		$this->load->model('admin_model', 'admin');
 		$this->load->model('user_model', 'user');
 		$this->load->model('kota_model', 'kota');
+		$this->load->model('transaksi_model', 'transaksi');
+		$this->load->model('cabang_model', 'cabang');
 	}
 
 	function index($offset = '') {
@@ -60,6 +62,10 @@ class Penukaran extends CI_Controller {
 			$data['penukaran'] = $this->kurs->pagep($limit, $offset);
 			$data['totalbiaya'] = $this->kurs->total();
 		}
+		$data['kasmasuk'] = $this->transaksi->kasmasuk();
+		$data['kaskeluar'] = $this->transaksi->kaskeluar();
+		$data['saldoawal'] = $this->cabang->saldoawal();
+		$data['saldoakhir'] = $this->cabang->saldoakhir();
 		$data['kota'] = $this->kota->all();
 		$data['total'] = $total;
 		$data['page_link'] = $this->pagination->create_links();

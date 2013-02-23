@@ -10,6 +10,8 @@ class Rental extends CI_Controller {
 		$this->load->model('rental_model', 'rent');
 		$this->load->model('user_model', 'user');
 		$this->load->model('admin_model', 'admin');
+		$this->load->model('transaksi_model', 'transaksi');
+		$this->load->model('cabang_model', 'cabang');
 		$this->load->model('kota_model', 'kota');
 	}
 
@@ -59,6 +61,10 @@ class Rental extends CI_Controller {
 			$data['persewaan'] = $this->rent->pagep($limit, $offset);
 			$data['totalbiaya'] = $this->rent->total();
 		}
+		$data['kasmasuk'] = $this->transaksi->kasmasuk();
+		$data['kaskeluar'] = $this->transaksi->kaskeluar();
+		$data['saldoawal'] = $this->cabang->saldoawal();
+		$data['saldoakhir'] = $this->cabang->saldoakhir();
 		$data['kota'] = $this->kota->all();
 		$data['total'] = $total;
 		$data['page_link'] = $this->pagination->create_links();

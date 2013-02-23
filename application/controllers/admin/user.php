@@ -9,6 +9,8 @@ class User extends CI_Controller {
 		$this->load->library('pagination');
 		$this->load->model('user_model', 'user');
 		$this->load->model('admin_model', 'admin');
+		$this->load->model('transaksi_model', 'transaksi');
+		$this->load->model('cabang_model', 'cabang');
 		$this->path = realpath(APPPATH.'../user');
 	}
 
@@ -26,6 +28,11 @@ class User extends CI_Controller {
 		$limit = 5;
 		$total = $this->user->count();
 		$data['alluser'] = $this->user->page($limit, $offset);
+
+		$data['kasmasuk'] = $this->transaksi->kasmasuk();
+		$data['kaskeluar'] = $this->transaksi->kaskeluar();
+		$data['saldoawal'] = $this->cabang->saldoawal();
+		$data['saldoakhir'] = $this->cabang->saldoakhir();
 		
 		$config['base_url'] = base_url().'admin/user/index/';
 		$config['total_rows'] = $total;

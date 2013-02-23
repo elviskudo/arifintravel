@@ -18,15 +18,35 @@ class Transaksi extends CI_Controller {
 		// 	$this->session->sess_destroy();
 		// 	redirect('admin/main');
 		// }
+		// $this->session->set_userdata('search','');
 		$id = $this->session->userdata('id_transaksi');
 		$data['gettransaksi'] = $this->transaksi->getp($id);
 		$data['cabang'] = $this->cabang->getnama($this->session->userdata('id_cabang'));
 		$data['cabangs'] = $this->cabang->all();
 		$data['user'] = $this->admin->getmail($this->session->userdata('email'));
 		
+		if($this->input->post('tanggal_sekian0'))
+			$data['tanggal_sekian0'] = $this->input->post('tanggal_sekian0');
+		if($this->input->post('tanggal_sekian1'))
+			$data['tanggal_sekian1'] = $this->input->post('tanggal_sekian1');
+		if($this->input->post('kota'))
+			$data['kota'] = $this->input->post('kota');
+
 		/* pagination */
 		$limit = 5;
-		$total = $this->transaksi->count();
+		if($this->session->userdata('search') == 'yes') {
+			$data['transaksi'] = $this->transaksi->searchq();
+			$total = $this->transaksi->countq();
+			$data['kasmasuk'] = $this->transaksi->kasmasuk($this->input->post('kota'), $this->input->post('tanggal_sekian0'), $this->input->post('tanggal_sekian1'));
+			$data['kaskeluar'] = $this->transaksi->kaskeluar($this->input->post('kota'), $this->input->post('tanggal_sekian0'), $this->input->post('tanggal_sekian1'));
+		} else {
+			$data['transaksi'] = $this->transaksi->page($limit, $offset);
+			$total = $this->transaksi->count();
+			$data['kasmasuk'] = $this->transaksi->kasmasuk();
+			$data['kaskeluar'] = $this->transaksi->kaskeluar();
+		}
+		$data['saldoawal'] = $this->cabang->saldoawal();
+		$data['saldoakhir'] = $this->cabang->saldoakhir();
 		$data['total'] = $total;
 
 		$config['base_url'] = base_url().'admin/transaksi/index/';
@@ -35,47 +55,19 @@ class Transaksi extends CI_Controller {
 		$config['num_links'] = 8;
 		$config['per_page'] = $limit;
 		
-		$data['transaksi'] = $this->transaksi->page($limit, $offset);
-		$data['kasmasuk'] = $this->transaksi->kasmasuk();
-		$data['kaskeluar'] = $this->transaksi->kaskeluar();
+		if($this->session->userdata('search') != 'yes')
+			$this->pagination->initialize($config);
 
-		$this->pagination->initialize($config);
-		
 		if(IS_AJAX) {
 			$this->load->view('admin/ajax/transaksi', $data);
 		} else {
 			$this->load->view('admin/transaksi', $data);
 		}
 	}
-	function search($offset = '', $tanggal1=NULL, $tanggal2=NULL, $cabang=0, $arus='') {
-		$id = $this->session->userdata('id_transaksi');
-		$data['gettransaksi'] = $this->transaksi->getp($id);
-		$data['cabang'] = $this->cabang->getnama($this->session->userdata('id_cabang'));
-		$data['cabangs'] = $this->cabang->all();
-		$data['user'] = $this->admin->getmail($this->session->userdata('email'));
-		
-		/* pagination */
-		$limit = 5;
-		$total = $this->transaksi->countq($_POST['kota'], $_POST['arus'], $_POST['tanggal_sekian0'], $_POST['tanggal_sekian1']);
-		$data['total'] = $total;
-
-		$config['base_url'] = base_url().'admin/transaksi/search/';
-		$config['total_rows'] = $total;
-		$config['uri_segment'] = 4;
-		$config['num_links'] = 8;
-		$config['per_page'] = $limit;
-		
-		$data['transaksi'] = $this->transaksi->searchq($_POST['kota'], $_POST['arus'], $_POST['tanggal_sekian0'], $_POST['tanggal_sekian1'], $limit, $offset);
-		$data['kasmasuk'] = $this->transaksi->kasmasuk($_POST['tanggal_sekian0'], $_POST['tanggal_sekian1']);
-		$data['kaskeluar'] = $this->transaksi->kaskeluar($_POST['tanggal_sekian0'], $_POST['tanggal_sekian1']);
-
-		$this->pagination->initialize($config);
-		
-		if(IS_AJAX) {
-			$this->load->view('admin/ajax/transaksi', $data);
-		} else {
-			$this->load->view('admin/transaksi', $data);
-		}
+	function search() {
+		$this->session->set_userdata('search', 'yes');
+		$this->session->unset_userdata('update');
+		$this->index();
 	}
 	
 	/* proses CRUD */

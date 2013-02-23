@@ -21,7 +21,7 @@
 							</a>
 							<div id="filter" style='background:#ccc;border:1px solid #999;display:block;float:right;padding:5px;'>
 								<div style="margin:5px;width:640px;">
-									<label for="kota" style='float:left;margin-top:5px;margin-right:5px;'>Kantor Cabang</label>
+									<label for="kota" style='float:left;margin-top:5px;margin-right:5px;'>Cabang</label>
 									<?php if($this->session->userdata('email') == 'admin@arifintravel.com'): ?>
 									<select id="kota" name="kota" style='float:left;width:120px;margin-right:5px;'>
 										<?php if($this->session->userdata('email') == 'admin@arifintravel.com'): ?>
@@ -58,12 +58,7 @@
 									});
 									</script>
 
-									<label for="kas" style='float:left;width:70px;margin-right:5px;'>Kas</label>
-									<select name="arus" style='float:left;width:70px;margin-right:5px;'>
-										<option value="masuk">Masuk</option>
-										<option value="keluar" selected>Keluar</option>
-									</select>
-									<input type="submit" name="submit" value="Go">
+									<input type="submit" name="submit" value="Go" style="float:left">
 								</div>
 							</div>
 						</form>
@@ -75,6 +70,7 @@
 						<th>Tanggal</th>
 						<th>Judul</th>
 						<th>Cabang</th>
+						<th>Arus</th>
 						<th>Nilai</th>
 						<th class='action'>Action</th>
 					</tr>
@@ -87,6 +83,7 @@
 						<td><?php echo date('d M Y H:i:s', $row->tanggal) ?></td>
 						<td><?php echo $row->judul ?></td>
 						<td><?php echo $row->nama ?></td>
+						<td><?php echo $row->arus ?></td>
 						<td><?php echo str_replace(',','.',number_format($row->nilai)) ?></td>
 						<td>
 							<a href="<?php echo base_url() ?>admin/transaksi/delete_transaksi/<?php echo $row->id_transaksi ?>" onclick="return confirm('Apakah kamu yakin untuk menghapus transaksi ini?')">
@@ -117,7 +114,7 @@
 					<label for="id_cabang">Kantor Cabang</label>
 					<?php if($this->session->userdata('id_cabang') == '1'): ?>
 						<?php $cabang = $this->cabang_model->all() ?>
-					<select name="cabang">
+					<select name="id_cabang">
 						<?php foreach($cabang as $cb): ?>
 						<option value="<?php echo $cb->id_cabang ?>"><?php echo $cb->nama ?></option>
 						<?php endforeach ?>
@@ -150,7 +147,7 @@
 					<label for="id_cabang">Kantor Cabang</label>
 					<?php if($this->session->userdata('email') == 'admin@arifintravel.com'): ?>
 						<?php $cabang = $this->db->order_by('nama')->get('cabang')->result() ?>
-					<select name="cabang">
+					<select name="id_cabang">
 						<?php foreach($cabang as $cb): ?>
 						<option value="<?php echo $cb->id_cabang ?>"><?php echo $cb->nama ?></option>
 						<?php endforeach ?>
