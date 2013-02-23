@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 3.5.2
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 01, 2013 at 02:47 PM
+-- Generation Time: Feb 23, 2013 at 02:32 AM
 -- Server version: 5.5.27
--- PHP Version: 5.4.7
+-- PHP Version: 5.4.4
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -72,15 +72,30 @@ CREATE TABLE IF NOT EXISTS `cabang` (
   `saldo_akhir` int(11) NOT NULL,
   `status` int(1) NOT NULL,
   PRIMARY KEY (`id_cabang`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `cabang`
 --
 
 INSERT INTO `cabang` (`id_cabang`, `tanggal`, `id_user`, `nama`, `alamat`, `kota`, `telpon`, `email`, `kontak`, `hp`, `saldo_awal`, `saldo_akhir`, `status`) VALUES
-(1, 1358957250, 'ece902d2', 'GRESIK JAYA', 'Jl. Bandung 23', 'GRESIK', '0122327987', 'arifin.gresik@arifintravel.com', 'Gunawan', '087762736476', 2000000, 2383000, 1),
-(2, 1359385391, 'ece902d2', 'MALANG CITY', 'Jl. Pahlawan', 'MALANG', '034987457', 'malang.city@arifintravel.com', 'budiman', '087734858768', 1500000, 4000000, 1);
+(1, 1358957250, 'ece902d2', 'ADMIN', 'Jl. Bandung 23', 'GRESIK', '0122327987', 'arifin.gresik@arifintravel.com', 'Arifin', '087762736476', 100000, 130000, 1),
+(2, 1359385391, 'ece902d2', 'PACIRAN', 'Jl. Pahlawan', 'LAMONGAN', '034987457', 'malang.city@arifintravel.com', 'budiman', '087734858768', 2000, 3000, 1),
+(3, 1360195844, 'ece902d2', 'BOJONEGORO', 'bojonegoro', 'BOJONEGORO', '0123123123', 'bojonegoro@arifintravel.com', 'bojonegoro', '0987987987', 0, 0, 1),
+(4, 1360195886, 'ece902d2', 'TUBAN', 'tuban', 'TUBAN', '0123123123', 'tuban@arifintravel.com', 'tuban', '0987987987', 0, 0, 1),
+(5, 1360195955, 'ece902d2', 'PAMBON', 'pambon', 'TUBAN', '0123123123', 'pambon@arifintravel.com', 'pambon', '0987987987', 0, 0, 1),
+(6, 1360196181, 'ece902d2', 'PAYAMAN', 'payaman', 'MAGELANG', '0123123123', 'payaman@arifintravel.com', 'payaman', '0987987987', 0, 0, 1),
+(7, 1360198244, 'ece902d2', 'SAWO', 'sawo', 'SIDOARJO', '0123123123', 'sawo@arifintravel.com', 'sawo', '0987987987', 0, 0, 1),
+(8, 1360198302, 'ece902d2', 'BABAT', 'babat', 'BOJONEGORO', '0123123123', 'babat@arifintravel.com', 'babat', '0987987987', 0, 0, 1),
+(9, 1360198361, 'ece902d2', 'DRAJAT', 'drajat', 'LAMONGAN', '0123123123', 'drajat@arifintravel.com', 'drajat', '0987987987', 0, 0, 1),
+(10, 1360198411, 'ece902d2', 'PRUPOH', 'prupoh', 'TUBAN', '0123123123', 'prupoh@arifintravel.com', 'prupoh', '0987987987', 0, 0, 1),
+(11, 1360198480, 'ece902d2', 'GOLOKAN', 'golokan', 'GRESIK', '0123123123', 'golokan@arifintravel.com', 'golokan', '0987987987', 0, 0, 1),
+(12, 1360198543, 'ece902d2', 'SUKODADI', 'sukodadi', 'LAMONGAN', '0123123123', 'sukodadi@arifintravel.com', 'sukodadi', '0987987987', 0, 0, 1),
+(13, 1360198580, 'ece902d2', 'LUMAJANG', 'lumajang', 'LUMAJANG', '0123123123', 'lumajang@arifintravel.com', 'lumajang', '0987987987', 0, 0, 1),
+(14, 1360199000, 'ece902d2', 'TERBANG', 'terbang', 'LAMONGAN', '0123123123', 'terbang@arifintravel.com', 'terbang', '0987987987', 0, 0, 1),
+(15, 1360199030, 'ece902d2', 'SURABAYA', 'surabaya', 'SURABAYA', '0123123123', 'surabaya@arifintravel.com', 'surabaya', '0987987987', 0, 0, 1),
+(16, 1360199081, 'ece902d2', 'PROBOLINGGO', 'probolinggo', 'PROBOLINGGO', '0123123123', 'probolinggo@arifintravel.com', 'probolinggo', '0987987987', 0, 0, 1),
+(17, 1360199124, 'ece902d2', 'SIWALAN', 'siwalan', 'GRESIK', '0123123123', 'siwalan@arifintravel.com', 'siwalan', '0987987987', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -11319,7 +11334,38 @@ INSERT INTO `log` (`tanggal`, `event`, `ip`, `agent`) VALUES
 ('2013-01-28 17:51:23', 'transaksi: insert jualan baju dengan keterangan: jualan baju lagi<br>id: 1', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
 ('2013-01-28 17:52:12', 'transaksi: insert jualan kaos oblong dengan keterangan: wah enak nih jualna terus<br>id: 2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
 ('2013-01-29 03:04:19', 'update admin&id: 3', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
-('2013-01-29 03:08:35', 'update admin&id: 3', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17');
+('2013-01-29 03:08:35', 'update admin&id: 3', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.56 Safari/537.17'),
+('2013-02-07 01:10:44', 'insert cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:10:44', 'insert transaksi cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:11:26', 'insert cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:11:26', 'insert transaksi cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:12:35', 'insert cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:12:35', 'insert transaksi cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:16:21', 'insert cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:16:21', 'insert transaksi cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:50:44', 'insert cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:50:44', 'insert transaksi cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:51:42', 'insert cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:51:42', 'insert transaksi cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:52:41', 'insert cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:52:41', 'insert transaksi cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:53:31', 'insert cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:53:32', 'insert transaksi cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:54:40', 'insert cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:54:40', 'insert transaksi cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:55:44', 'insert cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:55:44', 'insert transaksi cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:56:21', 'insert cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 01:56:21', 'insert transaksi cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 02:03:21', 'insert cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 02:03:21', 'insert transaksi cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 02:03:50', 'insert cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 02:03:50', 'insert transaksi cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 02:04:42', 'insert cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 02:04:42', 'insert transaksi cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 02:05:24', 'insert cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-07 02:05:24', 'insert transaksi cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-14 01:57:29', 'transaksi: insert jualan baju dengan keterangan: jualan baju sebesar: keluar<br>id: 18', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17');
 
 -- --------------------------------------------------------
 
@@ -24193,24 +24239,39 @@ INSERT INTO `tiket_penumpang` (`id_tiket`, `nama`, `pengenal`, `alamat`, `telp`,
 
 DROP TABLE IF EXISTS `transaksi`;
 CREATE TABLE IF NOT EXISTS `transaksi` (
-  `id_transaksi` int(11) NOT NULL AUTO_INCREMENT,
+  `id_transaksi` bigint(20) NOT NULL AUTO_INCREMENT,
   `tanggal` int(20) NOT NULL,
   `id_user` varchar(8) NOT NULL,
   `id_cabang` int(11) NOT NULL,
   `judul` varbinary(255) NOT NULL,
   `keterangan` text NOT NULL,
+  `arus` varchar(16) NOT NULL COMMENT '''masuk'',''keluar''',
   `nilai` int(1) NOT NULL,
   `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_transaksi`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `transaksi`
 --
 
-INSERT INTO `transaksi` (`id_transaksi`, `tanggal`, `id_user`, `id_cabang`, `judul`, `keterangan`, `nilai`, `status`) VALUES
-(1, 1359391883, 'ece902d2', 1, 'jualan baju', 'jualan baju lagi', 258000, 1),
-(2, 1359391932, 'ece902d2', 1, 'jualan kaos oblong', 'wah enak nih jualna terus', 125000, 1);
+INSERT INTO `transaksi` (`id_transaksi`, `tanggal`, `id_user`, `id_cabang`, `judul`, `keterangan`, `arus`, `nilai`, `status`) VALUES
+(1, 1359391883, 'ece902d2', 1, 'SALDO AWAL CABANG KOTA GRESIK', 'Saldo awal kantor cabang dengan nama: gresik yang beralamat di gresik kota gresik , kontak person: gresik dengan saldo awal sebesar: 0', 'masuk', 0, 1),
+(3, 1360195844, 'ece902d2', 3, 'SALDO AWAL CABANG KOTA BOJONEGORO', 'Saldo awal kantor cabang dengan nama: bojonegoro yang beralamat di bojonegoro kota bojonegoro , kontak person: bojonegoro dengan saldo awal sebesar: 0', 'masuk', 0, 1),
+(4, 1360195886, 'ece902d2', 4, 'SALDO AWAL CABANG KOTA TUBAN', 'Saldo awal kantor cabang dengan nama: tuban yang beralamat di tuban kota tuban , kontak person: tuban dengan saldo awal sebesar: 0', 'masuk', 0, 1),
+(5, 1360195955, 'ece902d2', 5, 'SALDO AWAL CABANG KOTA TUBAN', 'Saldo awal kantor cabang dengan nama: pambon yang beralamat di pambon kota tuban , kontak person: pambon dengan saldo awal sebesar: 0', 'masuk', 0, 1),
+(6, 1360196181, 'ece902d2', 6, 'SALDO AWAL CABANG KOTA MAGELANG', 'Saldo awal kantor cabang dengan nama: payaman yang beralamat di payaman kota magelang , kontak person: payaman dengan saldo awal sebesar: 0', 'masuk', 0, 1),
+(7, 1360198244, 'ece902d2', 7, 'SALDO AWAL CABANG KOTA SIDOARJO', 'Saldo awal kantor cabang dengan nama: sawo yang beralamat di sawo kota sidoarjo , kontak person: sawo dengan saldo awal sebesar: 0', 'masuk', 0, 1),
+(8, 1360198302, 'ece902d2', 8, 'SALDO AWAL CABANG KOTA BOJONEGORO', 'Saldo awal kantor cabang dengan nama: babat yang beralamat di babat kota bojonegoro , kontak person: babat dengan saldo awal sebesar: 0', 'masuk', 0, 1),
+(9, 1360198361, 'ece902d2', 9, 'SALDO AWAL CABANG KOTA LAMONGAN', 'Saldo awal kantor cabang dengan nama: drajat yang beralamat di drajat kota lamongan , kontak person: drajat dengan saldo awal sebesar: 0', 'masuk', 0, 1),
+(10, 1360198411, 'ece902d2', 10, 'SALDO AWAL CABANG KOTA TUBAN', 'Saldo awal kantor cabang dengan nama: prupoh yang beralamat di prupoh kota tuban , kontak person: prupoh dengan saldo awal sebesar: 0', 'masuk', 0, 1),
+(11, 1360198480, 'ece902d2', 11, 'SALDO AWAL CABANG KOTA GRESIK', 'Saldo awal kantor cabang dengan nama: golokan yang beralamat di golokan kota gresik , kontak person: golokan dengan saldo awal sebesar: 0', 'masuk', 0, 1),
+(12, 1360198544, 'ece902d2', 12, 'SALDO AWAL CABANG KOTA LAMONGAN', 'Saldo awal kantor cabang dengan nama: sukodadi yang beralamat di sukodadi kota lamongan , kontak person: sukodadi dengan saldo awal sebesar: 0', 'masuk', 0, 1),
+(13, 1360198581, 'ece902d2', 13, 'SALDO AWAL CABANG KOTA LUMAJANG', 'Saldo awal kantor cabang dengan nama: lumajang yang beralamat di lumajang kota lumajang , kontak person: lumajang dengan saldo awal sebesar: 0', 'masuk', 0, 1),
+(14, 1360199001, 'ece902d2', 14, 'SALDO AWAL CABANG KOTA LAMONGAN', 'Saldo awal kantor cabang dengan nama: terbang yang beralamat di terbang kota lamongan , kontak person: terbang dengan saldo awal sebesar: 0', 'masuk', 0, 1),
+(15, 1360199030, 'ece902d2', 15, 'SALDO AWAL CABANG KOTA SURABAYA', 'Saldo awal kantor cabang dengan nama: surabaya yang beralamat di surabaya kota surabaya , kontak person: surabaya dengan saldo awal sebesar: 0', 'masuk', 0, 1),
+(16, 1360199082, 'ece902d2', 16, 'SALDO AWAL CABANG KOTA PROBOLINGGO', 'Saldo awal kantor cabang dengan nama: probolinggo yang beralamat di probolinggo kota probolinggo , kontak person: probolinggo dengan saldo awal sebesar: 0', 'masuk', 0, 1),
+(17, 1360199124, 'ece902d2', 17, 'SALDO AWAL CABANG KOTA GRESIK', 'Saldo awal kantor cabang dengan nama: siwalan yang beralamat di siwalan kota gresik , kontak person: siwalan dengan saldo awal sebesar: 0', 'masuk', 0, 1);
 
 -- --------------------------------------------------------
 
