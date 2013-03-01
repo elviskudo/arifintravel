@@ -187,8 +187,9 @@ class Tiket_model extends CI_Model {
 		$this->db->insert('transaksi', $data);
 
 		// update data saldo akhir cabang
+		$saldo_akhir = $this->db->where('id_cabang',$this->input->post('kota'))->get('cabang')->row()->saldo_akhir;
 		$data = array(
-			'saldo_akhir' => $this->input->post('biaya')
+			'saldo_akhir' => ($saldo_akhir + $biaya)
 		);
 		$this->db->where('id_cabang', $this->input->post('kota'));
 		$this->db->update('cabang', $data);

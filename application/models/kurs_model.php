@@ -216,28 +216,55 @@ class Kurs_model extends CI_Model {
 		/* isi data urutan */
 		//echo "test".$combinecode;
 		$this->updateNo($combinecode);
+
+		// isi data transaksi
+		$kota = $this->db->where('id_cabang', $this->input->post('kota'))->get('cabang')->nama;
+		$data = array(
+			'tanggal' => time(),
+			'id_user' => substr(md5($this->session->userdata('email')),0,8),
+			'id_cabang' => $this->input->post('kota'),
+			'judul' => 'ID Tukar: '.$no.' untuk mata uang '.$mata_uang.' dalam kurs '.$kurs,
+			'keterangan' => 'ID Tukar: '.$no.' untuk mata uang '.$mata_uang.'
+				dalam kurs '.$kurs.'
+				dari saudara/saudari '.$this->input->post('pemesan').'
+				yang beralamat di '.$this->input->post('alamat').' no telpon '.$this->input->post('telp').'
+				jumlah '.$jumlah.' 
+				sebesar Rp '.$biaya2,
+			'arus' => 'masuk',
+			'nilai' => $biaya2,
+			'status' => 1
+		);
+		$this->db->insert('transaksi', $data);
+
+		// update data saldo akhir cabang
+		$saldo_akhir = $this->db->where('id_cabang',$this->input->post('kota'))->get('cabang')->row()->saldo_akhir;
+		$data = array(
+			'saldo_akhir' => ($saldo_akhir + $biaya2)
+		);
+		$this->db->where('id_cabang', $this->input->post('kota'));
+		$this->db->update('cabang', $data);
 	}
 	
 	function insert_all() {
-	foreach($this->getNoInvoice() as $row) {
+		foreach($this->getNoInvoice() as $row) {
 			$combinecode = $row->nomor;
 		}
-	$no = 'MC-'.date('my').'-0'.$combinecode;
-	$total = 0;
-	for($i = 1; $i <= $this->input->post('jml'); $i++) {
-		$mata_uang[$i] = $this->kurs->getmatauang($this->input->post('matauang'.$i));
-		$jumlah[$i] = $this->input->post('jumlah'.$i);
-		$jenis = $this->input->post('jenis'); 
+		$no = 'MC-'.date('my').'-0'.$combinecode;
+		$total = 0;
+		for($i = 1; $i <= $this->input->post('jml'); $i++) {
+			$mata_uang[$i] = $this->kurs->getmatauang($this->input->post('matauang'.$i));
+			$jumlah[$i] = $this->input->post('jumlah'.$i);
+			$jenis = $this->input->post('jenis'); 
 			if($jenis =="jual") {
 				$kurs[$i] = $this->kurs->getjual($this->input->post('matauang'.$i));
 			} else {
 				$kurs[$i] = $this->kurs->getbeli($this->input->post('matauang'.$i));
 			}
-		$biaya[$i] = $jumlah[$i] * $kurs[$i];
-		$total = $total + $biaya[$i];
-	}
+			$biaya[$i] = $jumlah[$i] * $kurs[$i];
+			$total = $total + $biaya[$i];
+		}
 	
-	/* isi data penukaran */
+		/* isi data penukaran */
 		$data = array(
 			'id_penukaran' => $no,
 			'tanggal_penukaran' => date('Y-m-d'),
@@ -258,13 +285,40 @@ class Kurs_model extends CI_Model {
 				'kurs' => $kurs[$i],
 				'jumlah' => $jumlah[$i],
 				'biaya' => $biaya[$i],
-			);	
+			);
 			$this->db->insert('penukaran_matauang', $data);
 		}
 		$this->session->set_userdata('id_penukaran', $no);
 		/* isi data urutan */
 		//echo "test".$combinecode;
 		$this->updateNo($combinecode);
+
+		// isi data transaksi
+		$kota = $this->db->where('id_cabang', $this->input->post('kota'))->get('cabang')->nama;
+		$data = array(
+			'tanggal' => time(),
+			'id_user' => substr(md5($this->session->userdata('email')),0,8),
+			'id_cabang' => $this->input->post('kota'),
+			'judul' => 'ID Tukar: '.$no.' untuk mata uang '.$mata_uang.' dalam kurs '.$kurs,
+			'keterangan' => 'ID Tukar: '.$no.' untuk mata uang '.$mata_uang.'
+				dalam kurs '.$kurs.'
+				dari saudara/saudari '.$this->input->post('pemesan').'
+				yang beralamat di '.$this->input->post('alamat').' no telpon '.$this->input->post('telp').'
+				jumlah '.$jumlah.' 
+				sebesar Rp '.$total,
+			'arus' => 'masuk',
+			'nilai' => $total,
+			'status' => 1
+		);
+		$this->db->insert('transaksi', $data);
+
+		// update data saldo akhir cabang
+		$saldo_akhir = $this->db->where('id_cabang',$this->input->post('kota'))->get('cabang')->row()->saldo_akhir;
+		$data = array(
+			'saldo_akhir' => ($saldo_akhir + $total)
+		);
+		$this->db->where('id_cabang', $this->input->post('kota'));
+		$this->db->update('cabang', $data);
 	}
 	function getNoInvoice() {
 		$query = "SELECT nomor from urutan WHERE jenis ='penukaran'";

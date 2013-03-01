@@ -153,6 +153,33 @@ class Rental_model extends CI_Model {
 		/* isi data urutan */
 		//echo "test".$combinecode;
 		$this->updateNo($combinecode);
+
+		// isi data transaksi
+		$kota = $this->db->where('id_cabang', $this->input->post('kota'))->get('cabang')->nama;
+		$data = array(
+			'tanggal' => time(),
+			'id_user' => substr(md5($this->session->userdata('email')),0,8),
+			'id_cabang' => $this->input->post('kota'),
+			'judul' => 'ID Sewa: '.$no.' dengan tujuan '.$this->input->post('tujuan'),
+			'keterangan' => 'ID Sewa: '.$no.' dengan ID Member: '.$this->input->post('id_member').'
+				dengan tujuan ke '.$this->input->post('tujuan').'
+				pada tanggal mulai '.$this->tanggalan($this->input->post('tgl_mulai')).' 
+				dan tanggal akhir '.$this->tanggalan($this->input->post('tgl_akhir')).'
+				dengan jaminan '.$this->input->post('jaminan').'
+				sebesar Rp '.$this->input->post('tarif').
+			'arus' => 'masuk',
+			'nilai' => $this->input->post('tarif'),
+			'status' => 1
+		);
+		$this->db->insert('transaksi', $data);
+
+		// update data saldo akhir cabang
+		$saldo_akhir = $this->db->where('id_cabang',$this->input->post('kota'))->get('cabang')->row()->saldo_akhir;
+		$data = array(
+			'saldo_akhir' => ($saldo_akhir + $this->input->post('tarif'))
+		);
+		$this->db->where('id_cabang', $this->input->post('kota'));
+		$this->db->update('cabang', $data);
 	}
 	
 	function getNoInvoice() {

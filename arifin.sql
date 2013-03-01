@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 23, 2013 at 02:32 AM
+-- Generation Time: Mar 01, 2013 at 02:21 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.4
 
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`id_admin`, `tanggal`, `id_cabang`, `email`, `password`, `nama`, `kota`, `telpon`, `hp`, `level`, `status`) VALUES
-(1, 1359384806, 1, 'admin@arifintravel.com', 'admin123', 'Mara Bunta', 'Gresik', '081232137', '0877643764', 1, 1),
+(1, 1359384806, 7, 'admin@arifintravel.com', 'admin123', 'Mara Bunta', 'Gresik', '081232137', '0877643764', 1, 1),
 (3, 1359389177, 1, 'bagus@arifintravel.com', 'bagus', 'bagus lagi', 'GRESIK', '083984759347', '039845938745', 0, 1);
 
 -- --------------------------------------------------------
@@ -72,30 +72,43 @@ CREATE TABLE IF NOT EXISTS `cabang` (
   `saldo_akhir` int(11) NOT NULL,
   `status` int(1) NOT NULL,
   PRIMARY KEY (`id_cabang`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
 
 --
 -- Dumping data for table `cabang`
 --
 
 INSERT INTO `cabang` (`id_cabang`, `tanggal`, `id_user`, `nama`, `alamat`, `kota`, `telpon`, `email`, `kontak`, `hp`, `saldo_awal`, `saldo_akhir`, `status`) VALUES
-(1, 1358957250, 'ece902d2', 'ADMIN', 'Jl. Bandung 23', 'GRESIK', '0122327987', 'arifin.gresik@arifintravel.com', 'Arifin', '087762736476', 100000, 130000, 1),
-(2, 1359385391, 'ece902d2', 'PACIRAN', 'Jl. Pahlawan', 'LAMONGAN', '034987457', 'malang.city@arifintravel.com', 'budiman', '087734858768', 2000, 3000, 1),
-(3, 1360195844, 'ece902d2', 'BOJONEGORO', 'bojonegoro', 'BOJONEGORO', '0123123123', 'bojonegoro@arifintravel.com', 'bojonegoro', '0987987987', 0, 0, 1),
-(4, 1360195886, 'ece902d2', 'TUBAN', 'tuban', 'TUBAN', '0123123123', 'tuban@arifintravel.com', 'tuban', '0987987987', 0, 0, 1),
-(5, 1360195955, 'ece902d2', 'PAMBON', 'pambon', 'TUBAN', '0123123123', 'pambon@arifintravel.com', 'pambon', '0987987987', 0, 0, 1),
-(6, 1360196181, 'ece902d2', 'PAYAMAN', 'payaman', 'MAGELANG', '0123123123', 'payaman@arifintravel.com', 'payaman', '0987987987', 0, 0, 1),
-(7, 1360198244, 'ece902d2', 'SAWO', 'sawo', 'SIDOARJO', '0123123123', 'sawo@arifintravel.com', 'sawo', '0987987987', 0, 0, 1),
-(8, 1360198302, 'ece902d2', 'BABAT', 'babat', 'BOJONEGORO', '0123123123', 'babat@arifintravel.com', 'babat', '0987987987', 0, 0, 1),
-(9, 1360198361, 'ece902d2', 'DRAJAT', 'drajat', 'LAMONGAN', '0123123123', 'drajat@arifintravel.com', 'drajat', '0987987987', 0, 0, 1),
-(10, 1360198411, 'ece902d2', 'PRUPOH', 'prupoh', 'TUBAN', '0123123123', 'prupoh@arifintravel.com', 'prupoh', '0987987987', 0, 0, 1),
-(11, 1360198480, 'ece902d2', 'GOLOKAN', 'golokan', 'GRESIK', '0123123123', 'golokan@arifintravel.com', 'golokan', '0987987987', 0, 0, 1),
-(12, 1360198543, 'ece902d2', 'SUKODADI', 'sukodadi', 'LAMONGAN', '0123123123', 'sukodadi@arifintravel.com', 'sukodadi', '0987987987', 0, 0, 1),
-(13, 1360198580, 'ece902d2', 'LUMAJANG', 'lumajang', 'LUMAJANG', '0123123123', 'lumajang@arifintravel.com', 'lumajang', '0987987987', 0, 0, 1),
-(14, 1360199000, 'ece902d2', 'TERBANG', 'terbang', 'LAMONGAN', '0123123123', 'terbang@arifintravel.com', 'terbang', '0987987987', 0, 0, 1),
-(15, 1360199030, 'ece902d2', 'SURABAYA', 'surabaya', 'SURABAYA', '0123123123', 'surabaya@arifintravel.com', 'surabaya', '0987987987', 0, 0, 1),
-(16, 1360199081, 'ece902d2', 'PROBOLINGGO', 'probolinggo', 'PROBOLINGGO', '0123123123', 'probolinggo@arifintravel.com', 'probolinggo', '0987987987', 0, 0, 1),
-(17, 1360199124, 'ece902d2', 'SIWALAN', 'siwalan', 'GRESIK', '0123123123', 'siwalan@arifintravel.com', 'siwalan', '0987987987', 0, 0, 1);
+(1, 1358957250, 'ece902d2', 'TUBAN', 'Jl. Bandung 23', 'TUBAN', '01230123123', 'tuban@arifintravel.com', 'Tuban', '09870987987', 0, 0, 1),
+(2, 1359385391, 'ece902d2', 'SOLOKURO', 'Jl. Pahlawan', 'TUBAN', '034987457', 'solokuro@arifintravel.com', 'solokuro', '09870987987', 0, 0, 1),
+(3, 1360195844, 'ece902d2', 'PACIRAN', 'paciran', 'PACIRAN', '0123123123', 'paciran@arifintravel.com', 'paciran', '0987987987', 0, 0, 0),
+(4, 1360195886, 'ece902d2', 'DERAJAT', 'derajat', 'DERAJAT', '0123123123', 'derajat@arifintravel.com', 'derajat', '0987987987', 0, 0, 1),
+(5, 1360195955, 'ece902d2', 'PRUPOH', 'prupoh', 'PRUPOH', '0123123123', 'prupoh@arifintravel.com', 'prupoh', '0987987987', 0, 0, 1),
+(6, 1360196181, 'ece902d2', 'GOLOKAN', 'golokan', 'GOLOKAN', '0123123123', 'golokan@arifintravel.com', 'golokan', '0987987987', 0, 0, 1),
+(7, 1360198244, 'ece902d2', 'ADMIN', 'Jl. Bandung 23', 'GRESIK', '0122327987', 'arifin.gresik@arifintravel.com', 'Arifin', '087762736476', 0, 0, 1),
+(10, 1360198411, 'ece902d2', 'SUKODADI', 'sukodadi', 'SUKODADI', '0123123123', 'sukodadi@arifintravel.com', 'sukodadi', '0987987987', 0, 0, 1),
+(11, 1360198480, 'ece902d2', 'PAMBON', 'pambon', 'PAMBON', '0123123123', 'pambon@arifintravel.com', 'pambon', '0987987987', 0, 0, 1),
+(12, 1360198543, 'ece902d2', 'BOJONEGORO2', 'bojonegoro', 'BOJONEGORO', '0123123123', 'bojonegoro@arifintravel.com', 'bojonegoro', '0987987987', 0, 0, 0),
+(13, 1360198580, 'ece902d2', 'BOJONEGORO', 'bojonegoro', 'BOJONEGORO', '0123123123', 'bojonegoro@arifintravel.com', 'bojonegoro', '0987987987', 0, 0, 1),
+(14, 1360199000, 'ece902d2', 'BOJONEGORO3', 'bojonegoro', 'BOJONEGORO3', '0123123123', 'bojonegoro@arifintravel.com', 'bojonegoro', '0987987987', 0, 0, 0),
+(15, 1360199030, 'ece902d2', 'PACIRAN', 'paciran', 'PACIRAN', '0123123123', 'paciran@arifintravel.com', 'paciran', '0987987987', 0, 0, 1),
+(16, 1360199081, 'ece902d2', 'SUB', 'sub', 'SUB', '0123123123', 'sub@arifintravel.com', 'sub', '0987987987', 0, 0, 1),
+(17, 1360199124, 'ece902d2', 'SUB1', 'sub1', 'SUB1', '0123123123', 'sub1@arifintravel.com', 'sub1', '0987987987', 0, 0, 0),
+(18, 1358957250, 'ece902d2', 'SUB2', 'sub2', 'SUB2', '01230123123', 'sub2@arifintravel.com', 'sub2', '09870987987', 0, 0, 0),
+(19, 1358957250, 'ece902d2', 'LUMAJANG', 'lumajang', 'LUMAJANG', '01230123123', 'lumajang@arifintravel.com', 'lumajang', '09870987987', 0, 0, 1),
+(20, 1358957250, 'ece902d2', 'LUMAJANG1', 'lumajang1', 'LUMAJANG1', '01230123123', 'lumajang1@arifintravel.com', 'lumajang1', '09870987987', 0, 0, 0),
+(21, 1358957250, 'ece902d2', 'LUMAJANG2', 'lumajang', 'LUMAJANG', '01230123123', 'lumajang@arifintravel.com', 'lumajang', '09870987987', 0, 0, 0),
+(22, 1358957250, 'ece902d2', 'LAMONGAN', 'lamongan', 'LAMONGAN', '01230123123', 'lamongan@arifintravel.com', 'lamongan', '09870978987', 0, 0, 1),
+(23, 1358957250, 'ece902d2', 'BABAT', 'babat', 'BABAT', '01230123123', 'babat@arifintravel.com', 'babat', '09870987987', 0, 0, 0),
+(24, 1358957250, 'ece902d2', 'MADURA', 'madura', 'MADURA', '01230123123', 'madura@arifintravel.com', 'madura', '09870978987', 0, 0, 1),
+(25, 1358957250, 'ece902d2', 'PROBOLINGGO', 'probolinggo', 'PROBOLINGGO', '01230123123', 'probolinggo@arifintravel.com', 'probolinggo', '09870978987', 0, 0, 1),
+(26, 1358957250, 'ece902d2', 'MALANG', 'malang', 'MALANG', '01230123123', 'malang@arifintravel.com', 'malang', '09870987987', 0, 0, 1),
+(27, 1358957250, 'ece902d2', 'BABAT', 'babat', 'BABAT', '01230123123', 'babat@arifintravel.com', 'babat', '09870987987', 0, 0, 0),
+(30, 1358957250, 'ece902d2', 'TULUNGAGUNG', 'tulungagung', 'TULUNGAGUNG', '01230123123', 'tulungagung@arifintravel.com', 'tulungagung', '09870987987', 0, 0, 1),
+(31, 1358957250, 'ece902d2', 'BANYUWANGI', 'banyuwangi', 'BANYUWANGI', '01230123123', 'banyuwangi@arifintravel.com', 'banyuwangi', '09870987987', 0, 0, 1),
+(32, 1358957250, 'ece902d2', 'PROBOLINGGO', 'probolinggo', 'PROBOLINGGO', '01230123123', 'probolinggo@arifintravel.com', 'probolinggo', '09870987987', 0, 0, 1),
+(33, 1358957250, 'ece902d2', 'BONDOWOSO', 'bondowoso', 'BONDOWOSO', '01230123123', 'bondowoso@arifintravel.com', 'bondowoso', '09780987987', 0, 0, 1),
+(36, 1358957250, '', 'SIWALAN', 'siwalan', 'SIWALAN', '01230123123', 'siwalan@arifintravel.com', 'siwalan', '09870987987', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -4125,7 +4138,7 @@ CREATE TABLE IF NOT EXISTS `kota` (
   `biaya` decimal(10,0) NOT NULL,
   `status` int(11) NOT NULL,
   PRIMARY KEY (`id_kota`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
 
 --
 -- Dumping data for table `kota`
@@ -4142,7 +4155,7 @@ INSERT INTO `kota` (`id_kota`, `nama`, `biaya`, `status`) VALUES
 (10, 'SUKODADI', 100000, 1),
 (11, 'PAMBON', 50000, 1),
 (12, 'BOJONEGORO2', 150000, 0),
-(13, 'BOJONEGORO1', 250000, 1),
+(13, 'BOJONEGORO', 250000, 1),
 (14, 'BOJONEGORO3', 100000, 0),
 (15, 'PACIRAN', 50000, 1),
 (16, 'SUB', 100000, 1),
@@ -4151,21 +4164,18 @@ INSERT INTO `kota` (`id_kota`, `nama`, `biaya`, `status`) VALUES
 (19, 'LUMAJANG', 300000, 1),
 (20, 'LUMAJANG1', 150000, 0),
 (21, 'LUMAJANG2', 100000, 0),
-(22, 'lamongan', 100000, 1),
-(23, 'babat', 100000, 1),
-(24, 'madura', 150000, 1),
-(25, 'probolinggo', 400000, 1),
-(26, 'malang', 300000, 1),
+(22, 'LAMONGAN', 100000, 1),
+(23, 'BABAT', 100000, 1),
+(24, 'MADURA', 150000, 1),
+(25, 'PROBOLINGGO', 400000, 1),
+(26, 'MALANG', 300000, 1),
 (27, 'BABAT', 100000, 0),
-(28, 'cokit', 100000, 1),
-(29, 'cokit1', 100000, 1),
 (30, 'TULUNG AGUNG', 100000, 1),
 (31, 'BANYUWANGI', 150000, 1),
 (32, 'PROBOLINGGO', 100000, 1),
 (33, 'BONDOWOSO', 150000, 1),
-(34, 'KLANG', 100000, 1),
-(35, 'chowkit', 100000, 1),
-(36, 'SIWALAN', 75000, 1);
+(36, 'SIWALAN', 75000, 1),
+(38, 'SAWO', 75000, 1);
 
 -- --------------------------------------------------------
 
@@ -11365,7 +11375,11 @@ INSERT INTO `log` (`tanggal`, `event`, `ip`, `agent`) VALUES
 ('2013-02-07 02:04:42', 'insert transaksi cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
 ('2013-02-07 02:05:24', 'insert cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
 ('2013-02-07 02:05:24', 'insert transaksi cabang&id: ', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
-('2013-02-14 01:57:29', 'transaksi: insert jualan baju dengan keterangan: jualan baju sebesar: keluar<br>id: 18', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17');
+('2013-02-14 01:57:29', 'transaksi: insert jualan baju dengan keterangan: jualan baju sebesar: keluar<br>id: 18', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17'),
+('2013-02-26 14:42:24', 'update cabang&id: 1', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.97 Safari/537.22'),
+('2013-02-26 14:42:24', 'update transaksi cabang&id: 1', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.97 Safari/537.22'),
+('2013-02-26 14:42:37', 'update cabang&id: 2', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.97 Safari/537.22'),
+('2013-02-26 14:42:37', 'update transaksi cabang&id: 2', '::1', 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.97 Safari/537.22');
 
 -- --------------------------------------------------------
 
@@ -24249,7 +24263,7 @@ CREATE TABLE IF NOT EXISTS `transaksi` (
   `nilai` int(1) NOT NULL,
   `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_transaksi`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `transaksi`
@@ -24271,7 +24285,9 @@ INSERT INTO `transaksi` (`id_transaksi`, `tanggal`, `id_user`, `id_cabang`, `jud
 (14, 1360199001, 'ece902d2', 14, 'SALDO AWAL CABANG KOTA LAMONGAN', 'Saldo awal kantor cabang dengan nama: terbang yang beralamat di terbang kota lamongan , kontak person: terbang dengan saldo awal sebesar: 0', 'masuk', 0, 1),
 (15, 1360199030, 'ece902d2', 15, 'SALDO AWAL CABANG KOTA SURABAYA', 'Saldo awal kantor cabang dengan nama: surabaya yang beralamat di surabaya kota surabaya , kontak person: surabaya dengan saldo awal sebesar: 0', 'masuk', 0, 1),
 (16, 1360199082, 'ece902d2', 16, 'SALDO AWAL CABANG KOTA PROBOLINGGO', 'Saldo awal kantor cabang dengan nama: probolinggo yang beralamat di probolinggo kota probolinggo , kontak person: probolinggo dengan saldo awal sebesar: 0', 'masuk', 0, 1),
-(17, 1360199124, 'ece902d2', 17, 'SALDO AWAL CABANG KOTA GRESIK', 'Saldo awal kantor cabang dengan nama: siwalan yang beralamat di siwalan kota gresik , kontak person: siwalan dengan saldo awal sebesar: 0', 'masuk', 0, 1);
+(17, 1360199124, 'ece902d2', 17, 'SALDO AWAL CABANG KOTA GRESIK', 'Saldo awal kantor cabang dengan nama: siwalan yang beralamat di siwalan kota gresik , kontak person: siwalan dengan saldo awal sebesar: 0', 'masuk', 0, 1),
+(18, 1361886144, 'ece902d2', 1, 'PERUBAHAN SALDO CABANG KOTA GRESIK', 'Perubahan saldo awal dari kantor cabang dengan nama: ADMIN yang beralamat di Jl. Bandung 23 kota GRESIK , kontak person: Arifin sebesar: 0', '', 0, 1),
+(19, 1361886157, 'ece902d2', 2, 'PERUBAHAN SALDO CABANG KOTA LAMONGAN', 'Perubahan saldo awal dari kantor cabang dengan nama: PACIRAN yang beralamat di Jl. Pahlawan kota LAMONGAN , kontak person: budiman sebesar: 0', '', 0, 1);
 
 -- --------------------------------------------------------
 
