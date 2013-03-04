@@ -166,7 +166,7 @@ class Rental_model extends CI_Model {
 				pada tanggal mulai '.$this->tanggalan($this->input->post('tgl_mulai')).' 
 				dan tanggal akhir '.$this->tanggalan($this->input->post('tgl_akhir')).'
 				dengan jaminan '.$this->input->post('jaminan').'
-				sebesar Rp '.$this->input->post('tarif').
+				sebesar Rp '.$this->input->post('tarif'),
 			'arus' => 'masuk',
 			'nilai' => $this->input->post('tarif'),
 			'status' => 1

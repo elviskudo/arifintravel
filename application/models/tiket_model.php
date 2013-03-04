@@ -179,7 +179,7 @@ class Tiket_model extends CI_Model {
 				telah memesan tiket dengan nomor booking '.$this->input->post('kodeb').' di cabang '.$this->input->post('kota').' 
 				akan diberangkatkan pada tanggal '.$this->tanggalan($this->input->post('tgl_berangkat')).' 
 				melalui maskapai '.$this->input->post('maskapai').' pada jam '.$this->input->post('jam').'
-				sebesar Rp '.$this->input->post('biaya').
+				sebesar Rp '.$this->input->post('biaya'),
 			'arus' => 'masuk',
 			'nilai' => $biaya,
 			'status' => 1
