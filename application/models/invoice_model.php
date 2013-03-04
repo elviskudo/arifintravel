@@ -511,9 +511,9 @@ class Invoice_model extends CI_Model {
 			'tanggal' => time(),
 			'id_user' => substr(md5($this->session->userdata('email')),0,8),
 			'id_cabang' => $this->input->post('kota'),
-			'judul' => 'Pengantaran dengan tujuan '.$kota,
-			'keterangan' => 'Pengantaran dengan tujuan '.$kota.'
-				pada tanggal '.date('d M Y', $this->input->post('waktu')).'
+			'judul' => 'Pengantaran dengan tujuan '.$this->input->post('kota'),
+			'keterangan' => 'Pengantaran dengan tujuan '.$this->input->post('kota').'
+				pada tanggal '.$this->tanggalan($this->input->post('waktu')).'
 				jam '.$this->input->post('jam').' sebesar Rp '.$biaya,
 			'arus' => 'masuk',
 			'nilai' => $biaya,
@@ -570,9 +570,9 @@ class Invoice_model extends CI_Model {
 			'tanggal' => time(),
 			'id_user' => substr(md5($this->session->userdata('email')),0,8),
 			'id_cabang' => $this->input->post('kota'),
-			'judul' => 'Pengantaran '.count($this->input->post('orang')).' orang dengan tujuan '.$kota,
-			'keterangan' => 'Pengantaran '.count($this->input->post('orang')).' orang dengan tujuan '.$kota.'
-				pada tanggal '.date('d M Y', $this->input->post('waktu')).'
+			'judul' => 'Pengantaran '.count($this->input->post('orang')).' orang dengan tujuan '.$this->input->post('kota'),
+			'keterangan' => 'Pengantaran '.count($this->input->post('orang')).' orang dengan tujuan '.$this->input->post('kota').'
+				pada tanggal '.$this->tanggalan($this->input->post('waktu')).'
 				jam '.$this->input->post('jam').' sebesar Rp '.$biaya,
 			'arus' => 'masuk',
 			'nilai' => $biaya,
