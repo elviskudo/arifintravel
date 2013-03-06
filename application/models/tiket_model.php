@@ -168,12 +168,12 @@ class Tiket_model extends CI_Model {
 		$this->updateNo($combinecode);
 
 		// isi data transaksi
-		$kota = $this->db->where('id_cabang', $this->input->post('dari'))->get('cabang')->nama;
+		$kota = $this->db->where('id_cabang', $this->input->post('kota'))->get('cabang')->row()->nama;
 		$data = array(
 			'tanggal' => time(),
 			'id_user' => substr(md5($this->session->userdata('email')),0,8),
-			'id_cabang' => $this->input->post('dari'),
-			'judul' => 'Kode booking '.$this->input->post('kodeb').' dari '.$this->input->post('dari'),
+			'id_cabang' => $this->input->post('kota'),
+			'judul' => 'Kode booking '.$this->input->post('kodeb').' dari '.$this->input->post('kota'),
 			'keterangan' => 'Tiket dengan nama '.$this->input->post('nama').' dan tanda pengenal '.$this->input->post('pengenal').'
 				yang beralamat di '.$this->input->post('alamat').'
 				telah memesan tiket dengan nomor booking '.$this->input->post('kodeb').' di cabang '.$this->input->post('kota').' 
@@ -187,7 +187,7 @@ class Tiket_model extends CI_Model {
 		$this->db->insert('transaksi', $data);
 
 		// update data saldo akhir cabang
-		$saldo_akhir = $this->db->where('id_cabang',$this->input->post('dari'))->get('cabang')->row()->saldo_akhir;
+		$saldo_akhir = $this->db->where('id_cabang',$this->input->post('kota'))->get('cabang')->row()->saldo_akhir;
 		$data = array(
 			'saldo_akhir' => ($saldo_akhir + $biaya)
 		);

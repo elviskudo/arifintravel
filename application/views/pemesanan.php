@@ -37,7 +37,7 @@
 						<select id='kota' name="kota" class='required'>
 								<option value="" selected></option>
 								<?php foreach($kota as $kt): ?>
-								<option value="<?php echo $kt->nama ?>"><?php echo $kt->nama ?></option>
+								<option value="<?php echo $kt->id_kota ?>"><?php echo $kt->nama ?></option>
 								<?php endforeach; ?>
 							</select>
 						</div>
