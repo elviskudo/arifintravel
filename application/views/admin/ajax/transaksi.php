@@ -75,7 +75,7 @@
 						<td><?php echo $num ?></td>
 						<td><?php echo date('d M Y H:i:s', $row->tanggal) ?></td>
 						<td><?php echo $row->judul ?></td>
-						<td><?php echo $row->nama ?></td>
+						<td><?php echo $row->kota ?></td>
 						<td><?php echo $row->arus ?></td>
 						<td><?php echo str_replace(',','.',number_format($row->nilai)) ?></td>
 						<td>

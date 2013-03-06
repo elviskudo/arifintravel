@@ -52,7 +52,7 @@ class Transaksi_model extends CI_Model {
 	}
 	function searchq() {
 		$query = "
-			SELECT a.id_transaksi, a.tanggal, b.nama, a.judul, a.keterangan, a.nilai, a.arus, a.status
+			SELECT a.id_transaksi, a.tanggal, b.kota, a.judul, a.keterangan, a.nilai, a.arus, a.status
 			FROM transaksi a, cabang b
 			WHERE a.id_cabang = b.id_cabang
 				AND a.status = 1
@@ -141,7 +141,7 @@ class Transaksi_model extends CI_Model {
 		if($offset == '')
 			$offset = 0;
 		$query = "
-			SELECT a.id_transaksi, a.tanggal, b.nama, a.judul, a.keterangan, a.nilai, a.arus, a.status
+			SELECT a.id_transaksi, a.tanggal, b.kota, a.judul, a.keterangan, a.nilai, a.arus, a.status
 			FROM transaksi a, cabang b
 			WHERE a.id_cabang = b.id_cabang
 				AND a.status = 1
@@ -157,7 +157,7 @@ class Transaksi_model extends CI_Model {
 	}
 	function count() {
 		$query = "
-			SELECT a.id_transaksi, a.tanggal, b.nama, a.judul, a.keterangan, a.nilai, a.status
+			SELECT a.id_transaksi, a.tanggal, b.kota, a.judul, a.keterangan, a.nilai, a.status
 			FROM transaksi a, cabang b
 			WHERE a.id_cabang = b.id_cabang
 				AND a.status = 1
