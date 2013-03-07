@@ -218,11 +218,11 @@ class Kurs_model extends CI_Model {
 		$this->updateNo($combinecode);
 
 		// isi data transaksi
-		$kota = $this->db->where('id_cabang', $this->input->post('kota'))->get('cabang')->nama;
+		$kota = $this->db->where('id_cabang', 7)->get('cabang')->row()->nama;
 		$data = array(
 			'tanggal' => time(),
 			'id_user' => substr(md5($this->session->userdata('email')),0,8),
-			'id_cabang' => $this->input->post('kota'),
+			'id_cabang' => 7,
 			'judul' => 'ID Tukar: '.$no.' untuk mata uang '.$mata_uang.' dalam kurs '.$kurs,
 			'keterangan' => 'ID Tukar: '.$no.' untuk mata uang '.$mata_uang.'
 				dalam kurs '.$kurs.'
@@ -237,11 +237,11 @@ class Kurs_model extends CI_Model {
 		$this->db->insert('transaksi', $data);
 
 		// update data saldo akhir cabang
-		$saldo_akhir = $this->db->where('id_cabang',$this->input->post('kota'))->get('cabang')->row()->saldo_akhir;
+		$saldo_akhir = $this->db->where('id_cabang',7)->get('cabang')->row()->saldo_akhir;
 		$data = array(
 			'saldo_akhir' => ($saldo_akhir + $biaya2)
 		);
-		$this->db->where('id_cabang', $this->input->post('kota'));
+		$this->db->where('id_cabang', 7);
 		$this->db->update('cabang', $data);
 	}
 	
@@ -294,11 +294,11 @@ class Kurs_model extends CI_Model {
 		$this->updateNo($combinecode);
 
 		// isi data transaksi
-		$kota = $this->db->where('id_cabang', $this->input->post('kota'))->get('cabang')->nama;
+		$kota = $this->db->where('id_cabang', 7)->get('cabang')->row()->nama;
 		$data = array(
 			'tanggal' => time(),
 			'id_user' => substr(md5($this->session->userdata('email')),0,8),
-			'id_cabang' => $this->input->post('kota'),
+			'id_cabang' => 7,
 			'judul' => 'ID Tukar: '.$no.' untuk mata uang '.$mata_uang.' dalam kurs '.$kurs,
 			'keterangan' => 'ID Tukar: '.$no.' untuk mata uang '.$mata_uang.'
 				dalam kurs '.$kurs.'
@@ -313,11 +313,11 @@ class Kurs_model extends CI_Model {
 		$this->db->insert('transaksi', $data);
 
 		// update data saldo akhir cabang
-		$saldo_akhir = $this->db->where('id_cabang',$this->input->post('kota'))->get('cabang')->row()->saldo_akhir;
+		$saldo_akhir = $this->db->where('id_cabang',7)->get('cabang')->row()->saldo_akhir;
 		$data = array(
 			'saldo_akhir' => ($saldo_akhir + $total)
 		);
-		$this->db->where('id_cabang', $this->input->post('kota'));
+		$this->db->where('id_cabang', 7);
 		$this->db->update('cabang', $data);
 	}
 	function getNoInvoice() {
