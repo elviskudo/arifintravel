@@ -16,6 +16,7 @@
 						<div class='simple'>
 							<label for="kota">Dari Kota Asal</label>
 							<input type="text" name="kota" value="<?php echo $this->input->post('kota'); ?>" readonly>
+							<input type="hidden" name="id_kota" value="<?php echo $id_kota ?>" />
 						</div>
 						<div class='simple'>
 							<label for="orang">Banyaknya Orang</label>

@@ -506,11 +506,11 @@ class Invoice_model extends CI_Model {
 		$this->db->insert('invoice', $data);
 
 		// isi data transaksi
-		$kota = $this->db->where('id_cabang', $this->input->post('kota'))->get('cabang')->row()->nama;
+		$kota = $this->db->where('id_cabang', $this->input->post('id_kota'))->get('cabang')->row()->nama;
 		$data = array(
 			'tanggal' => time(),
 			'id_user' => substr(md5($this->session->userdata('email')),0,8),
-			'id_cabang' => $this->input->post('kota'),
+			'id_cabang' => $this->input->post('id_kota'),
 			'judul' => 'Pengantaran dengan tujuan '.$this->input->post('kota'),
 			'keterangan' => 'Pengantaran dengan tujuan '.$this->input->post('kota').'
 				pada tanggal '.$this->tanggalan($this->input->post('waktu')).'
@@ -522,10 +522,11 @@ class Invoice_model extends CI_Model {
 		$this->db->insert('transaksi', $data);
 
 		// update data saldo akhir cabang
+		$saldo_akhir = $this->db->where('id_cabang',$this->input->post('id_kota'))->get('cabang')->row()->saldo_akhir;
 		$data = array(
-			'saldo_akhir' => $biaya
+			'saldo_akhir' => ($saldo_akhir + $biaya)
 		);
-		$this->db->where('id_cabang', $this->input->post('kota'));
+		$this->db->where('id_cabang', $this->input->post('id_kota'));
 		$this->db->update('cabang', $data);
 		
 		/* isi data urutan */
@@ -565,11 +566,11 @@ class Invoice_model extends CI_Model {
 		$this->db->insert('invoice', $data);
 		
 		// isi data transaksi
-		$kota = $this->db->where('id_cabang', $this->input->post('kota'))->get('cabang')->nama;
+		$kota = $this->db->where('id_cabang', $this->input->post('id_kota'))->get('cabang')->nama;
 		$data = array(
 			'tanggal' => time(),
 			'id_user' => substr(md5($this->session->userdata('email')),0,8),
-			'id_cabang' => $this->input->post('kota'),
+			'id_cabang' => $this->input->post('id_kota'),
 			'judul' => 'Pengantaran '.count($this->input->post('orang')).' orang dengan tujuan '.$this->input->post('kota'),
 			'keterangan' => 'Pengantaran '.count($this->input->post('orang')).' orang dengan tujuan '.$this->input->post('kota').'
 				pada tanggal '.$this->tanggalan($this->input->post('waktu')).'
@@ -581,10 +582,11 @@ class Invoice_model extends CI_Model {
 		$this->db->insert('transaksi', $data);
 
 		// update data saldo akhir cabang
+		$saldo_akhir = $this->db->where('id_cabang',$this->input->post('id_kota'))->get('cabang')->row()->saldo_akhir;
 		$data = array(
-			'saldo_akhir' => $biaya
+			'saldo_akhir' => ($saldo_akhir + $biaya)
 		);
-		$this->db->where('id_cabang', $this->input->post('kota'));
+		$this->db->where('id_cabang', $this->input->post('id_kota'));
 		$this->db->update('cabang', $data);
 		
 		for($i = 1; $i <= $this->input->post('orang'); $i++) {

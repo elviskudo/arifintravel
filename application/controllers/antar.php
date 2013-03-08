@@ -16,6 +16,7 @@ class Antar extends CI_Controller {
 		//$data['id_pesawat'] = 
 		$id_kota = $this->input->post('id_kota');
 		$data['kota'] = $this->kota->get($id_kota);
+		$data['id_kota'] = $id_kota;
 		$data['user'] = $this->user->getuser($this->session->userdata('id_user'));
 		$biaya = $this->kota->getbiaya($id_kota);
 		$data['biaya'] = str_replace(',','.',number_format($biaya));

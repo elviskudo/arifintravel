@@ -302,11 +302,11 @@ class Invoicej_model extends CI_Model {
 		$this->updateNo($combinecode, "penjemputan");
 
 		// isi data transaksi
-		$kota = $this->db->where('id_cabang', $this->input->post('kota'))->get('cabang')->row()->nama;
+		$kota = $this->db->where('id_cabang', $this->input->post('id_kota'))->get('cabang')->row()->nama;
 		$data = array(
 			'tanggal' => time(),
 			'id_user' => substr(md5($this->session->userdata('email')),0,8),
-			'id_cabang' => $this->input->post('kota'),
+			'id_cabang' => $this->input->post('id_kota'),
 			'judul' => 'ID Invoice: '.$no.' dengan tujuan '.$this->input->post('kota'),
 			'keterangan' => 'Penjemputan dengan ID Invoice: '.$no.' dengan tujuan '.$this->input->post('kota').'
 				oleh '.$this->input->post('emailp').' dengan jumlah orang '.$this->input->post('orang').'
@@ -320,11 +320,11 @@ class Invoicej_model extends CI_Model {
 		$this->db->insert('transaksi', $data);
 
 		// update data saldo akhir cabang
-		$saldo_akhir = $this->db->where('id_cabang',$this->input->post('kota'))->get('cabang')->row()->saldo_akhir;
+		$saldo_akhir = $this->db->where('id_cabang',$this->input->post('id_kota'))->get('cabang')->row()->saldo_akhir;
 		$data = array(
 			'saldo_akhir' => ($saldo_akhir + $biaya)
 		);
-		$this->db->where('id_cabang', $this->input->post('kota'));
+		$this->db->where('id_cabang', $this->input->post('id_kota'));
 		$this->db->update('cabang', $data);
 	}
 	function insertall_jemput() {
@@ -380,11 +380,11 @@ class Invoicej_model extends CI_Model {
 		$this->updateNo($combinecode, "penjemputan");
 
 		// isi data transaksi
-		$kota = $this->db->where('id_cabang', $this->input->post('kota'))->get('cabang')->nama;
+		$kota = $this->db->where('id_cabang', $this->input->post('id_kota'))->get('cabang')->nama;
 		$data = array(
 			'tanggal' => time(),
 			'id_user' => substr(md5($this->session->userdata('email')),0,8),
-			'id_cabang' => $this->input->post('kota'),
+			'id_cabang' => $this->input->post('id_kota'),
 			'judul' => 'ID Invoice: '.$no.' dengan tujuan '.$this->input->post('kota'),
 			'keterangan' => 'Penjemputan dengan ID Invoice: '.$no.' dengan tujuan '.$this->input->post('kota').'
 				oleh '.$this->input->post('emailp1').' dengan jumlah orang '.$this->input->post('orang').'
@@ -398,11 +398,11 @@ class Invoicej_model extends CI_Model {
 		$this->db->insert('transaksi', $data);
 
 		// update data saldo akhir cabang
-		$saldo_akhir = $this->db->where('id_cabang',$this->input->post('kota'))->get('cabang')->row()->saldo_akhir;
+		$saldo_akhir = $this->db->where('id_cabang',$this->input->post('id_kota'))->get('cabang')->row()->saldo_akhir;
 		$data = array(
 			'saldo_akhir' => ($saldo_akhir + $biaya)
 		);
-		$this->db->where('id_cabang', $this->input->post('kota'));
+		$this->db->where('id_cabang', $this->input->post('id_kota'));
 		$this->db->update('cabang', $data);
 	}
 	function getp($id) {

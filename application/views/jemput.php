@@ -18,6 +18,7 @@
 						<div class='simple'>
 							<label for="kota">Ke Kota Tujuan</label>
 							<input type="text" name="kota" value="<?php echo $kota; ?>" readonly>
+							<input type="hidden" name="id_kota" value="<?php echo $id_kota ?>" />
 						</div>
 						<div class='simple'>
 							<label for="orang">Banyaknya Orang</label>
