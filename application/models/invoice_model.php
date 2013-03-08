@@ -506,7 +506,7 @@ class Invoice_model extends CI_Model {
 		$this->db->insert('invoice', $data);
 
 		// isi data transaksi
-		$kota = $this->db->where('id_cabang', $this->input->post('kota'))->get('cabang')->nama;
+		$kota = $this->db->where('id_cabang', $this->input->post('kota'))->get('cabang')->row()->nama;
 		$data = array(
 			'tanggal' => time(),
 			'id_user' => substr(md5($this->session->userdata('email')),0,8),
