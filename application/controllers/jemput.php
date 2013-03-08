@@ -20,6 +20,7 @@ class Jemput extends CI_Controller {
 		$data['pesawat'] = $this->pesawat->all();
 		$id_kota = $this->input->post('kota');
 		$data['kota'] = $this->kota->get($id_kota);
+		$data['id_kota'] = $id_kota;
 		$data['user'] = $this->user->getuser($this->session->userdata('id_user'));
 		$biaya = $this->kota->getbiaya($id_kota);
 		$data['biaya'] = str_replace(',','.',number_format($biaya));
