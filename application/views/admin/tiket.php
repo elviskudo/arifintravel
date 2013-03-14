@@ -30,9 +30,9 @@
 										<?php $num = 1; ?>
 										<?php foreach($kota as $kt): ?>
 											<?php if($num == 1): ?>
-										<option value="<?php echo $kt->nama ?>" ><?php echo $kt->nama ?></option>
+										<option value="<?php echo $kt->id_kota ?>" ><?php echo $kt->nama ?></option>
 											<?php else: ?>
-										<option value="<?php echo $kt->nama ?>"><?php echo $kt->nama ?></option>
+										<option value="<?php echo $kt->id_kota ?>"><?php echo $kt->nama ?></option>
 											<?php endif; ?>
 											<?php $num++ ?>
 										<?php endforeach; ?>
@@ -94,7 +94,6 @@ button : \"cx_tanggal1\" // ID of the button
 						<th>Cabang</th>
 						<th>Tgl Pesan</th>
 						<th>Tgl Berangkat</th>
-						
 						<th>Maskapai</th>
 						<th>Biaya</th>
 						<th class='action'>Action</th>
@@ -108,7 +107,7 @@ button : \"cx_tanggal1\" // ID of the button
 						<td><?php echo $row->id_tiket ?></td>
 						<td><?php echo $row->dari ?></td>
 						<td><?php echo $row->tujuan ?></td>
-						<td><?php echo $row->cabang_pemesan ?></td>
+						<td><?php echo $this->db->where('id_cabang', $row->cabang_pemesan)->get('cabang')->row()->nama ?></td>
 						<td><?php echo $row->tgl_pemesanan ?></td>
 						<td><?php echo $row->tgl_berangkat ?></td>
 						
