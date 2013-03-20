@@ -47,7 +47,7 @@ class Tiket_model extends CI_Model {
 	function searchq() {
 		$sql = "
 			SELECT * FROM tiket 
-			WHERE id_tiket <> 'TK'  
+			WHERE id_tiket LIKE 'TK%'  
 		";
 		if($this->input->post('no')) {
 			$sql .= " AND id_tiket LIKE '%".$this->input->post('no')."%'";

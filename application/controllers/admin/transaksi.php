@@ -19,6 +19,7 @@ class Transaksi extends CI_Controller {
 		// 	redirect('admin/main');
 		// }
 		// $this->session->set_userdata('search','');
+		date_default_timezone_set('Asia/Jakarta');
 		$id = $this->session->userdata('id_transaksi');
 		$data['gettransaksi'] = $this->transaksi->getp($id);
 		$data['cabang'] = $this->cabang->getnama($this->session->userdata('id_cabang'));

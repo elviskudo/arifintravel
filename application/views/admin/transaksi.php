@@ -33,7 +33,8 @@
 									</select>
 									<?php else: ?>
 									<?php $kota = $this->db->where('id_cabang', $this->session->userdata('id_cabang'))->get('cabang')->row()->nama ?>
-									<input type="text" name="kota" value="<?php echo $kota ?>" style="float:left;width:80px;margin-right:10px" readonly />
+									<input type="hidden" name="kota" value="<?php echo $this->session->userdata('id_cabang') ?>" />
+									<input type="text" name="id_kota" value="<?php echo $kota ?>" style="float:left;width:80px;margin-right:10px" readonly />
 									<?php endif ?>
 									<label for="tanggal_sekian0" style='float:left;margin-top:5px;margin-right:5px;'>tanggal</label>
 									<input type='text' id="tanggal0" name="tanggal_sekian0" value="<?php echo date("d/m/Y") ?>" style='float:left;width:70px;margin-right:5px;'>
