@@ -75,7 +75,7 @@ class Tiket_model extends CI_Model {
 		}
 		
 		//if($this->input->post('mata_uang') != 'semua') {
-			$sql .= " order by tgl_pemesanan ASC";
+			$sql .= " order by tgl_pemesanan DESC";
 		//} else {
 		//	$sql .= "order by mata_uang ASC";
 		//}	

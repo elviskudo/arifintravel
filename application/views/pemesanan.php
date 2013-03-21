@@ -35,7 +35,6 @@
 						<div class='simple'>
 							<label for="cabang">Cabang Pemesan</label>
 						<select id='kota' name="kota" class='required'>
-								<option value="" selected></option>
 								<?php foreach($kota as $kt): ?>
 								<option value="<?php echo $kt->id_kota ?>"><?php echo $kt->nama ?></option>
 								<?php endforeach; ?>
