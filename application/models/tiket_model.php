@@ -69,7 +69,7 @@ class Tiket_model extends CI_Model {
 		if($this->input->post('tujuan') != '') {
 			$sql .= " AND tujuan = '".$this->input->post('tujuan')."'";
 		}
-		if($this->input->post('kota') != 'semua') {
+		if($this->input->post('kota') != 'semua' && $this->input->post('kota') != '') {
 			$kota = $this->db->where('id_cabang', $this->input->post('kota'))->get('cabang')->row()->nama;
 			$sql .= " AND cabang_pemesan LIKE '%".$kota."%'";
 		}
