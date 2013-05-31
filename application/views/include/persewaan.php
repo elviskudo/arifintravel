@@ -47,7 +47,7 @@ Jl. Senduro Utara Kec. Senduro Kab. Lumajang Telp. 0334-610446
 		Alamat : <b style='font-weight:bold'><?php echo $alamat ?></b><br>
 		No. Identitas : <b style='font-weight:bold'><?php echo $no_id ?></b><br>
 		Telpon : <b style='font-weight:bold'><?php echo $telp ?></b><br>
-		Dari Kota : <b style='font-weight:bold'><?php echo $kota ?></b><br>
+		Dari Kota : <b style='font-weight:bold'><?php echo $this->db->where('id_kota',$kota)->get('kota')->row()->nama ?></b><br>
 	</fieldset>
 	
 	<table border="1" cellspacing="1" cellpadding="1">

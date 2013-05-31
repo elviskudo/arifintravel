@@ -205,9 +205,21 @@ class Transaksi_model extends CI_Model {
 		$query = $this->db->get('cabang');
 		$row = $query->row();
 		$saldo_akhir = $row->saldo_akhir;
-		$data = array(
-			'saldo_akhir' => $saldo_akhir + $this->input->post('nilai')
-		);
+		if($this->input->post('kas') == 'keluar') {
+			if($saldo_akhir > 0) {
+				$data = array(
+					'saldo_akhir' => $saldo_akhir - $this->input->post('nilai')
+				);
+			} else {
+				$data = array(
+					'saldo_akhir' => $saldo_akhir
+				);
+			}
+		} else {
+			$data = array(
+				'saldo_akhir' => $saldo_akhir + $this->input->post('nilai')
+			);
+		}
 		$this->db->where('id_cabang', $this->input->post('id_cabang'));
 		$this->db->update('cabang', $data);
 	}
@@ -266,11 +278,12 @@ class Transaksi_model extends CI_Model {
 		$nilai = $row->nilai;
 		$id_cabang = $row->id_cabang;
 
-		$this->db->select('saldo_akhir');
+		$this->db->select('nama, saldo_akhir');
 		$this->db->where('id_cabang', $id_cabang);
 		$query = $this->db->get('cabang');
 		$row = $query->row();
 		$saldo = $row->saldo_akhir - $nilai;
+		$nama = $row->nama;
 		if($saldo <= 0)
 			$saldo = 0;
 		$data = array(
@@ -280,7 +293,7 @@ class Transaksi_model extends CI_Model {
 		$this->db->update('cabang', $data);
 
 		// insert log
-		$this->log('delete transaksi sebesar: '.$nilai, 'delete oleh '.$this->session->userdata('email').' di kota: '.$row->nama, $id);
+		$this->log('delete transaksi sebesar: '.$nilai, 'delete oleh '.$this->session->userdata('email').' di kota: '.$nama, $id);
 	}
 	function force($id) {
 		$this->db->where('id_transaksi', $id);

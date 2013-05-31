@@ -172,7 +172,7 @@
 				</div>
 				<?php if($this->session->userdata('email') == 'admin@arifintravel.com'): ?>
 				<div class="simple">
-					<label for="nilai">Nilai</label>
+					<label for="nilai">Status</label>
 					<select id='kas' name="kas" class='required'>
 						<option value="masuk">Masuk</option>
 						<option value="keluar" selected>Keluar</option>
